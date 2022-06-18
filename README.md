@@ -3,21 +3,21 @@
 # 框架介绍
 PaddleSports是飞桨面向体育场景的端到端开发套件，实现人工智能技术与体育行业的深度融合，目标打造“AI+Sports”的标杆案例集。PaddleSports的特色如下：
 
-1. 整体采用“5W1H”的产品架构，即：when[（什么时间）](#1-sportswhen)，where[（什么位置）](#2-sportswhere)，who[（是谁）](#3-sportswho)，what[（发生了什么）](#4-sportswhat)，why[（为什么）](#5-sportswhy)，how[（怎么样）](#6-sportshow)。系统梳理人工智能技术在体育行业的研究、应用、落地。
+1. 整体采用“5W1H”的产品架构，即：[when](#1sportswhen)（什么时间），[where](#2sportswhere)（什么位置），[who](#3sportswho)（是谁），[what](#4sportswhat)（发生了什么），[why](#5sportswhy)（为什么），[how](#6sportshow)（怎么样）。系统梳理人工智能技术在体育行业的研究、应用、落地。
 
 2. AI模型：从精度、速度、集成度三个维度进行性能评测。AI技术不仅是深度学习，同时整理了经典3D建模，SLAM，机器学习，以及硬件集成开发等工作，目标打造软硬一体的“AI+Sports”开发套件。
 
-3. [数据集](#7-data)：除了各个已有的公开数据集来评测深度模型的性能外，将首次推出SportsBenchmark[体育类公开评测数据集](#8-sportsbenchmark)，力争能够用一个数据集来评测所有算法模型。
+3. [数据](#7data)：除了各个已有的公开数据集来评测深度模型的性能外，将首次推出[SportsBenchmark](#8sportsbenchmark)，力争能够用一个数据集来评测所有算法模型。
 
-4. [工具集](#9-tools)：面向体育场景的工具集，比如标注工具、检测工具、识别工具等，具有All-in-One，AutoRun的特点。
+4. [工具](#9tools)：面向体育场景的工具集，比如标注工具、检测工具、识别工具等，具有All-in-One，AutoRun的特点。
 
-5. [应用](#10-applications)：涵盖足球、跳水、乒乓球、花样滑冰、健身、篮球、蹦床、大跳台、速度滑冰、跑步等热门的体育运动。
+5. [应用](#10applications)：涵盖足球、跳水、乒乓球、花样滑冰、健身、篮球、蹦床、大跳台、速度滑冰、跑步等热门的体育运动。
 
 
 # 分模块介绍
 该部分详细介绍“5W1H”各个模块的内容。
 
-## 1. sports_when
+## 1.sports_when
 &emsp; “when”模块重点从时域角度回答以下问题：
 
 &emsp; 1）输入一段视频，首先判断是什么体育运动；
@@ -48,7 +48,7 @@ PaddleSports是飞桨面向体育场景的端到端开发套件，实现人工�
 |                 |                    |                             |                                                     |                                                                                                             |         |
 
 
-## 2. sports_where
+## 2.sports_where
 
 &emsp; “where”模块重点分析：前景（运动员）、背景（场馆）、相机，这三类对象的位置/位姿的信息：
 
@@ -121,7 +121,7 @@ PaddleSports是飞桨面向体育场景的端到端开发套件，实现人工�
 |                 |                    |                             |                                                     |                                                                                                             |         |
 
 
-## 3. sports_who
+## 3.sports_who
 
 
 &emsp; “who”模块重点分析：图像/视频中有哪几类人员，分别是谁，特定人员在整场比赛的集锦等信息：
@@ -145,7 +145,7 @@ PaddleSports是飞桨面向体育场景的端到端开发套件，实现人工�
 |                 |                    |                             |                                                     |                                                                                                             |         |
 
 
-## 4. sports_what
+## 4.sports_what
 
 &emsp; “what”模块重点分析体育比赛画面中呈现的信息，包含：运动、语音、视觉、多模态等：
 
@@ -194,7 +194,7 @@ PaddleSports是飞桨面向体育场景的端到端开发套件，实现人工�
 |                 |                    |                             |                                                     |                                                                                                             |         |
 |                 |                    |                             |                                                     |                                                                                                             |         |
 
-## 5. sports_why
+## 5.sports_why
 
 &emsp; “why”模块重点分析影响运动表现的因素，并尝试预测伤病的可能性、比赛成绩等：
 
@@ -214,7 +214,7 @@ PaddleSports是飞桨面向体育场景的端到端开发套件，实现人工�
 |                 |                    |                             |                                                     |                                                                                                             |         |
 
 
-## 6. sports_how
+## 6.sports_how
 
 &emsp; “how”模块重点分析影响“AI+Sports”技术落地的因素：
 
@@ -234,7 +234,7 @@ PaddleSports是飞桨面向体育场景的端到端开发套件，实现人工�
 |                 |                    |                             |                                                     |                                                                                                             |         |
 
 
-## 7. data
+## 7.data
 
 &emsp; “data”模块重点梳理生成训练数据的6种主流方式：
 
@@ -264,7 +264,7 @@ PaddleSports是飞桨面向体育场景的端到端开发套件，实现人工�
 |                 |                    |                             |                                                     |                                                                                                             |         |
 
 
-## 8. sports_benchmark
+## 8.sports_benchmark
 
 &emsp; “sports_benchmark”模块将构建第一个体育类的benchmark，尽可能让所有算法在一个数据集上进行评测，特点是小而精，包含以下信息：
 
@@ -286,7 +286,7 @@ PaddleSports是飞桨面向体育场景的端到端开发套件，实现人工�
 
 
 
-## 9. tools
+## 9.tools
 
 &emsp; 面向体育场景的工具集，比如标注工具、检测工具、识别工具等，具有All-in-One，AutoRun的特点。
 
@@ -300,7 +300,7 @@ PaddleSports是飞桨面向体育场景的端到端开发套件，实现人工�
 |                 |                    |                             |                                                     |                                                                                                             |         |
 
 
-## 10. applications
+## 10.applications
 
 &emsp; 涵盖足球、跳水、乒乓球、花样滑冰、健身、篮球、蹦床、大跳台、速度滑冰、跑步等热门的体育运动。
 
