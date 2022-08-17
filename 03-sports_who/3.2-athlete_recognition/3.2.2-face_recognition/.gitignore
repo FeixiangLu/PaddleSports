@@ -1,0 +1,16 @@
+/__pycache__/
+dist/
+build/
+/Logs/
+/PaddleInference-demo/model/backbones/
+/deploy/python/
+/data/
+/pretrained/
+*.jpg
+*.pyc
+*.avi
+*.fdb
+/tools/mult_gpu_training.py
+
+
+
