@@ -10,6 +10,7 @@ build/
 *.pyc
 *.avi
 *.fdb
+*.mp4
 /tools/mult_gpu_training.py
 
 
