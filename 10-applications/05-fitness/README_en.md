@@ -3,12 +3,12 @@
 # PP-TinyPose
 
 <div align="center">
-  <img src="../../../docs/images/tinypose_demo.png"/>
+  <img src="./images/tinypose_demo.png"/>
   <center>Image Source: COCO2017</center>
 </div>
 
 ## Introduction
-PP-TinyPose is a real-time keypoint detection model optimized by PaddleDetecion for mobile devices, which can smoothly run multi-person pose estimation tasks on mobile devices. With the excellent self-developed lightweight detection model [PicoDet](../../picodet/README.md), we also provide a lightweight pedestrian detection model. PP-TinyPose has the following dependency requirements:
+PP-TinyPose is a real-time keypoint detection model optimized by PaddleDetecion for mobile devices, which can smoothly run multi-person pose estimation tasks on mobile devices. With the excellent self-developed lightweight detection model [PicoDet](https://github.com/PaddlePaddle/PaddleDetection/tree/develop/configs/picodet/README.md), we also provide a lightweight pedestrian detection model. PP-TinyPose has the following dependency requirements:
 - [PaddlePaddle](https://github.com/PaddlePaddle/Paddle)>=2.2
 
 If you want to deploy it on the mobile devives, you also need:
@@ -16,7 +16,7 @@ If you want to deploy it on the mobile devives, you also need:
 
 
 <div align="center">
-  <img src="../../../docs/images/tinypose_pipeline.png" width='800'/>
+  <img src="./images/tinypose_pipeline.png" width='800'/>
 </div>
 
 ## Deployment Case
@@ -24,12 +24,12 @@ If you want to deploy it on the mobile devives, you also need:
 - [Android Fitness Demo](https://github.com/zhiboniu/pose_demo_android) based on PP-TinyPose, which efficiently implements fitness calibration and counting.
 
 <div align="center">
-  <img src="../../../docs/images/fitness_demo.gif" width='636'/>
+  <img src="./images/fitness_demo.gif" width='636'/>
 </div>
 
 - Welcome to scan the QR code for quick experience.
 <div align="center">
-  <img src="../../../docs/images/tinypose_app.png" width='220'/>
+  <img src="./images/tinypose_app.png" width='220'/>
 </div>
 
 
@@ -43,14 +43,14 @@ If you want to deploy it on the mobile devives, you also need:
 ### Pedestrian Detection Model
 | Model  | Input Size | mAP (COCO Val) | Average Inference Time (FP32)| Average Inference Time (FP16) | Config | Model Weights | Deployment Model | Paddle-Lite Model（FP32) | Paddle-Lite Model（FP16)|
 | :------------------------ | :-------:  | :------: | :------: | :---: | :---: | :---: | :---: | :---: | :---: |
-| PicoDet-S-Pedestrian | 192*192 | 29.0 | 4.30ms |  2.37ms | [Config](../../picodet/legacy_model/application/pedestrian_detection/picodet_s_192_pedestrian.yml) |[Model](https://bj.bcebos.com/v1/paddledet/models/keypoint/picodet_s_192_pedestrian.pdparams) | [Deployment Model](https://bj.bcebos.com/v1/paddledet/models/keypoint/picodet_s_192_pedestrian.tar) | [Lite Model](https://bj.bcebos.com/v1/paddledet/models/keypoint/picodet_s_192_pedestrian_lite.tar) | [Lite Model(FP16)](https://bj.bcebos.com/v1/paddledet/models/keypoint/picodet_s_192_pedestrian_fp16_lite.tar) |
-| PicoDet-S-Pedestrian | 320*320 | 38.5 | 10.26ms |  6.30ms | [Config](../../picodet/legacy_model/application/pedestrian_detection/picodet_s_320_pedestrian.yml) | [Model](https://bj.bcebos.com/v1/paddledet/models/keypoint/picodet_s_320_pedestrian.pdparams) | [Deployment Model](https://bj.bcebos.com/v1/paddledet/models/keypoint/picodet_s_320_pedestrian.tar) | [Lite Model](https://bj.bcebos.com/v1/paddledet/models/keypoint/picodet_s_320_pedestrian_lite.tar) | [Lite Model(FP16)](https://bj.bcebos.com/v1/paddledet/models/keypoint/picodet_s_320_pedestrian_fp16_lite.tar) |
+| PicoDet-S-Pedestrian | 192*192 | 29.0 | 4.30ms |  2.37ms | [Config](https://github.com/PaddlePaddle/PaddleDetection/tree/develop/configs/picodet/legacy_model/application/pedestrian_detection/picodet_s_192_pedestrian.yml) |[Model](https://bj.bcebos.com/v1/paddledet/models/keypoint/picodet_s_192_pedestrian.pdparams) | [Deployment Model](https://bj.bcebos.com/v1/paddledet/models/keypoint/picodet_s_192_pedestrian.tar) | [Lite Model](https://bj.bcebos.com/v1/paddledet/models/keypoint/picodet_s_192_pedestrian_lite.tar) | [Lite Model(FP16)](https://bj.bcebos.com/v1/paddledet/models/keypoint/picodet_s_192_pedestrian_fp16_lite.tar) |
+| PicoDet-S-Pedestrian | 320*320 | 38.5 | 10.26ms |  6.30ms | [Config](https://github.com/PaddlePaddle/PaddleDetection/tree/develop/configs/picodet/legacy_model/application/pedestrian_detection/picodet_s_320_pedestrian.yml) | [Model](https://bj.bcebos.com/v1/paddledet/models/keypoint/picodet_s_320_pedestrian.pdparams) | [Deployment Model](https://bj.bcebos.com/v1/paddledet/models/keypoint/picodet_s_320_pedestrian.tar) | [Lite Model](https://bj.bcebos.com/v1/paddledet/models/keypoint/picodet_s_320_pedestrian_lite.tar) | [Lite Model(FP16)](https://bj.bcebos.com/v1/paddledet/models/keypoint/picodet_s_320_pedestrian_fp16_lite.tar) |
 
 
 **Tips**
 - The keypoint detection model and pedestrian detection model are both trained on `COCO train2017` and `AI Challenger trainset`. The keypoint detection model is evaluated on `COCO person keypoints val2017`, and the pedestrian detection model is evaluated on `COCO instances val2017`.
 - The AP results of keypoint detection models are based on bounding boxes in GroundTruth.
-- Both keypoint detection model and pedestrian detection model are trained in a 4-GPU environment. In practice, if number of GPUs or batch size need to be changed according to the training environment, you should refer to [FAQ](../../../docs/tutorials/FAQ/README.md) to adjust the learning rate.
+- Both keypoint detection model and pedestrian detection model are trained in a 4-GPU environment. In practice, if number of GPUs or batch size need to be changed according to the training environment, you should refer to [FAQ](https://github.com/PaddlePaddle/PaddleDetection/tree/develop/docs/tutorials/FAQ/README.md) to adjust the learning rate.
 - The inference time is tested on a Qualcomm Snapdragon 865, with 4 threads at arm8.
 
 ### Pipeline Performance
@@ -71,7 +71,7 @@ If you want to deploy it on the mobile devives, you also need:
 - The inference time is tested on a Qualcomm Snapdragon 865, with 4 threads at arm8, FP32.
 - Pipeline time includes time for preprocess, inferece and postprocess.
 - About the deployment and testing for other opensource model, please refer to [Here](https://github.com/zhiboniu/MoveNet-PaddleLite).
-- For more performance data in other runtime environment, please refer to [Keypoint Inference Benchmark](../KeypointBenchmark.md).
+- For more performance data in other runtime environment, please refer to [Keypoint Inference Benchmark](https://github.com/PaddlePaddle/PaddleDetection/tree/develop/configs/keypoint/KeypointBenchmark.md).
 
 ## Model Training
 In addition to `COCO`, the trainset for keypoint detection model and pedestrian detection model also includes [AI Challenger](https://arxiv.org/abs/1711.06475). Keypoints of each dataset are defined as follows:
@@ -175,7 +175,7 @@ python3 deploy/python/det_keypoint_unite_infer.py --det_model_dir=output_inferen
 #### Deploy directly using models we provide
 1. Download `Lite Model` from `Model Zoo` directly. And get the `.nb` format files of pedestrian detection model and keypoint detection model.
 2. Prepare environment for Paddle-Lite, you can obtain precompiled libraries from [PaddleLite Precompiled Libraries](https://paddle-lite.readthedocs.io/zh/latest/quick_start/release_lib.html). If FP16 is needed, you should download [Precompiled Libraries for FP16](https://github.com/PaddlePaddle/Paddle-Lite/releases/download/v2.10-rc/inference_lite_lib.android.armv8_clang_c++_static_with_extra_with_cv_with_fp16.tiny_publish_427e46.zip).
-3. Compile the code to run models. The detail can be seen in [Paddle-Lite Deployment on Mobile Devices](../../../deploy/lite/README.md).
+3. Compile the code to run models. The detail can be seen in [Paddle-Lite Deployment on Mobile Devices](https://github.com/PaddlePaddle/PaddleDetection/tree/develop/deploy/lite/README.md).
 
 #### Deployment self-trained models on Mobile Devices
 If you want to deploy self-trained models, you can refer to the following steps:
@@ -206,9 +206,9 @@ paddle_lite_opt --model_dir=inference_model/tinypose_128x96 --valid_targets=arm 
 paddle_lite_opt --model_dir=inference_model/tinypose_128x96 --valid_targets=arm --optimize_out=tinypose_128x96_fp16 --enable_fp16=true
 ```
 
-3. Compile the code to run models. The detail can be seen in [Paddle-Lite Deployment on Mobile Devices](../../../deploy/lite/README.md).
+3. Compile the code to run models. The detail can be seen in [Paddle-Lite Deployment on Mobile Devices](https://github.com/PaddlePaddle/PaddleDetection/tree/develop/deploy/lite/README.md).
 
-We provide [Example Code](../../../deploy/lite/) including data preprocessing, inferece and postpreocess. You can modify the codes according to your actual needs.
+We provide [Example Code](https://github.com/PaddlePaddle/PaddleDetection/tree/develop/deploy/lite/) including data preprocessing, inferece and postpreocess. You can modify the codes according to your actual needs.
 
 **Note:**
 - Add `TestReader.fuse_normalize=true` during the step of exporting model. The Normalize operation for the image will be executed in the model, which can achieve acceleration.
