@@ -41,7 +41,7 @@
 7. is_train如果为1，则代表模型训练，如果不为1，则代表模型验证
 8. output_log_dir,为log输出路径
 9. data_mode为数据模式，可采用joint和bone两者，分别是关节点和骨骼
->训练的学习率优化器可以在agcn2s_main.py中自行修改，
+>训练的学习率优化器可以在aagcn_main.py中自行修改，
 
 >运行示例：!python main.py  --load_pretrain_model Gmodel_state62.pdparams --is_train 0
 
