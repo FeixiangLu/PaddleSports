@@ -211,8 +211,8 @@ python3 deploy/python/det_keypoint_unite_infer.py --det_model_dir=output_inferen
 ```
 
 3. 执行C++联合部署预测
-- 请先按照[C++端预测部署](https://github.com/PaddlePaddle/PaddleDetection/tree/develop/tree/release/2.3/deploy/cpp)，根据您的实际环境准备对应的`paddle_inference`库及相关依赖。
-- 我们提供了[一键编译脚本](https://github.com/PaddlePaddle/PaddleDetection/tree/develop/blob/release/2.3/deploy/cpp/scripts/build.sh)，您可以通过该脚本填写相关环境变量的位置，编译上述代码后，得到可执行文件。该过程中请保证`WITH_KEYPOINT=ON`.
+- 请先按照[C++端预测部署](https://github.com/PaddlePaddle/PaddleDetection/tree/develop/deploy/cpp)，根据您的实际环境准备对应的`paddle_inference`库及相关依赖。
+- 我们提供了[一键编译脚本](https://github.com/PaddlePaddle/PaddleDetection/tree/develop/deploy/cpp/scripts/build.sh)，您可以通过该脚本填写相关环境变量的位置，编译上述代码后，得到可执行文件。该过程中请保证`WITH_KEYPOINT=ON`.
 - 编译完成后，即可执行部署预测，例如：
 ```bash
 # 预测一张图片
