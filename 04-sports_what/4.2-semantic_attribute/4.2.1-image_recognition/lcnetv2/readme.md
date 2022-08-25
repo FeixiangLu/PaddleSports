@@ -52,8 +52,8 @@
 
 ## 3. 单张图片检验
 
-测试图片为nba2k12 117.jpg
-![](./nba2k12 117.jpg)
+测试图片
+![](nba2k12117.jpg)
 
 
 
@@ -70,7 +70,7 @@ model = PPLCNetV2_model(10)
 model.set_state_dict(paddle.load("0.94.pdparams"))
 
 model.eval()
-img_A = cv2.cvtColor(cv2.imread("nba2k12 117.jpg", flags=cv2.IMREAD_COLOR),cv2.COLOR_BGR2RGB)#内容图
+img_A = cv2.cvtColor(cv2.imread("nba2k12117.jpg", flags=cv2.IMREAD_COLOR),cv2.COLOR_BGR2RGB)#内容图
 g_input = Resize(size = (360,640))(img_A)
 g_input = g_input[np.newaxis, ...].transpose(0, 3, 1, 2)  # NHWC -> NCHW
 g_input = paddle.to_tensor(g_input)
