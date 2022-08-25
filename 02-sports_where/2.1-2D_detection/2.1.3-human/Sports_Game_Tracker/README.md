@@ -118,7 +118,9 @@ PP-Human原有的参数：
 
 
 
-## 3. 模型训练
+## 3. 模型训练与二次开发
+
+**Sports_Game_tracker**由**PP-Human**二次开发而来，可视化功能扩展教程等可参阅：[利用PP-Human完成足球赛追踪二次开发](../../../../10-applications/01-football/PP-Human_football/README.md)
 
 ### 3.1 足球追踪
 
