@@ -89,4 +89,5 @@
 
  ### 模型训练预测方法
 
- 模型使用方法参考[ST-GCN模型文档](../../docs/zh-CN/model_zoo/recognition/stgcn.md)
+ 模型使用方法参考[AAGCN模型文档](../../04-sports_what/4.2-semantic_attribute/4.2.2-action_recognition/aagcn/readme.md)
+
