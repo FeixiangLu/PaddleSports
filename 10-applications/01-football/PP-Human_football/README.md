@@ -1,6 +1,6 @@
 # 利用PP-Human完成足球赛追踪二次开发
 
-**完整REPO位于[2.1.3-human/Sports_Game_Tracker](../../../02-sports_where/2.1-2D_detection/2.1.3-human/Sports_Game_tracker)，此处展示部分可视化结果与二次开发流程**
+**完整REPO位于[2.1.3-human/Sports_Game_Tracker](../../../02-sports_where/2.1-2D_detection/2.1.3-human/Sports_Game_tracker/)，此处展示部分可视化结果与二次开发流程**
 
 ## 1. 足球追踪二次开发
 
