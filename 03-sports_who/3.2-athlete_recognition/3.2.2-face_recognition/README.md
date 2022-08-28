@@ -13,6 +13,8 @@
 
 ## 快速开始
 
+#### AIstudio 示例项目连接[Face.eval人脸识别](https://aistudio.baidu.com/aistudio/projectdetail/2305787?contributionType=1&sUid=206265&shared=1&ts=1661685508709)
+
 #### 环境准备
 ```shell
 paddlepaddle-gpu==2.1.2
