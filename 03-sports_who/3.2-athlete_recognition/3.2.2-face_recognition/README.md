@@ -1,3 +1,5 @@
+##Face.运动员主体人脸识别
+
 ## 简介
 
 通过这个repo，您可以使用自己的数据集构建训练自己的人脸检测模型。
@@ -7,8 +9,15 @@
 
 * 运动员运动过程中识别效果
 
-#<siframe height=800 width=1000 src="//player.bilibili.com/player.html?aid=941024504&bvid=BV11W4y1m7Vc&cid=776635613&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+[![](PaddleInference-demo/cover.jpeg)](https://player.bilibili.com/player.html?aid=941024504&bvid=BV11W4y1m7Vc&cid=776635613&page=1)
 
+##快速开始
+
+####环境准备
+```shell
+paddlepaddle-gpu==2.1.2
+paddleslim==2.1.0
+```
 
 ####数据集准备
 
