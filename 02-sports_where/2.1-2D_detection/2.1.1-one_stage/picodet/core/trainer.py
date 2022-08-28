@@ -172,7 +172,7 @@ class Trainer(object):
             self._compose_callback = ComposeCallback(self._callbacks)
         elif self.mode == 'eval':
             self._callbacks = [LogPrinter(self)]
-            if self.cfg.metric == 'WiderFace':
+            if self.cfg['metric'] == 'WiderFace':
                 self._callbacks.append(WiferFaceEval(self))
             self._compose_callback = ComposeCallback(self._callbacks)
         elif self.mode == 'test' and self.cfg.get('use_vdl', False):
@@ -382,3 +382,10 @@ class Trainer(object):
         self._compose_callback.on_epoch_end(self.status)
         # reset metric states for metric may performed multiple times
         self._reset_metrics()
+
+    def evaluate(self):
+        self._init_metrics(True)
+        self._reset_metrics()
+        with paddle.no_grad():
+            self._eval_with_loader(self.loader)
+

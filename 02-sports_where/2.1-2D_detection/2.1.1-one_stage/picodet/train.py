@@ -34,6 +34,13 @@ def parse_args():
         default="sniper/proposals.json",
         help='Train proposals directory')
 
+    parser.add_argument(
+        '-c',
+        '--config',
+        type=str,
+        default="config/picodet_s_320_coco_lcnet.yml",
+        help='config')
+
     args = parser.parse_args()
     return args
 
@@ -79,7 +86,6 @@ def print_cfg(cfg,rank):
 
 def main():
     args = parse_args()
-    args.config = 'config/picodet_s_320_coco_lcnet.yml'
     cfg = load_config(args.config)
     cfg['save_proposals'] = args.save_proposals
     cfg['proposals_path'] = args.proposals_path

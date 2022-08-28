@@ -1,4 +1,4 @@
-##Face.运动员主体人脸识别
+## Face.运动员主体人脸识别
 
 ## 简介
 
@@ -11,15 +11,15 @@
 
 [![](PaddleInference-demo/cover.jpeg)](https://player.bilibili.com/player.html?aid=941024504&bvid=BV11W4y1m7Vc&cid=776635613&page=1)
 
-##快速开始
+## 快速开始
 
-####环境准备
+#### 环境准备
 ```shell
 paddlepaddle-gpu==2.1.2
 paddleslim==2.1.0
 ```
 
-####数据集准备
+#### 数据集准备
 
 * 准备您的训练/验证/测试数据集（数据集可以参考Data zoo）
 ,在使用数据集之前确保您的数据集按照以下结构存放。
@@ -37,7 +37,7 @@ paddleslim==2.1.0
   ```
   数据的读取具体方式参考 `tools/dataload.py`
 
-####FaceAlign
+#### FaceAlign
   * 人脸检测和对齐基于MTCNN
   * 文件夹 `./align` 下包含了人脸检测人脸数据对齐等人脸数据处理功能
 
@@ -64,7 +64,7 @@ paddleslim==2.1.0
     python move_data.py -source_root='csapeal_align' -samples_num=10
     ```
 
-####Train
+#### Train
 
   * 准备训练
     
@@ -159,7 +159,7 @@ paddleslim==2.1.0
 |MTCNN|GPU MaxWell(jetson nano)|Paddle-Inference|-|-|-|138.41|
 |MTCNN|CPU Raspberry Pi 4B|Paddle-Lite|-|-|-|210.49|
 
-###Paddle-Inference 部署
+### Paddle-Inference 部署
 
 Paddle Inference为飞桨核心框架推理引擎。Paddle Inference功能特性丰富，性能优异，针对服务器端应用场景进行了深度的适配优化，做到高吞吐、低时延，保证了飞桨模型在服务器端即训即用，快速部署。
 

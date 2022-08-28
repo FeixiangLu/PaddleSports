@@ -1,5 +1,5 @@
 # norm
-weights: output/picodet_s_320_coco/best_model
+weights: output/Picodet/best_model
 find_unused_parameters: True
 use_ema: true
 snapshot_epoch: 300
@@ -156,7 +156,7 @@ PicoDet:
 epoch: 300
 
 LearningRate:
-  base_lr: 0.32
+  base_lr: 0.08
   schedulers:
   - CosineDecay:
       max_epochs: 300
