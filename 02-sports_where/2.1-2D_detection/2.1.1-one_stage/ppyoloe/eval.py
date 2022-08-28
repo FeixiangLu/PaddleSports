@@ -6,7 +6,7 @@ import argparse
 from utils.logger import setup_logger
 from core.trainer import *
 
-logger = setup_logger('train')
+logger = setup_logger('eval')
 
 
 def parse_args():
@@ -16,24 +16,51 @@ def parse_args():
         action='store_true',
         default=False,
         help="Whether to perform evaluation in train")
+
     parser.add_argument(
         "--amp",
         action='store_true',
         default=False,
         help="Enable auto mixed precision training.")
+
     parser.add_argument(
         "-r", "--resume", default=None, help="weights path for resume")
+
     parser.add_argument(
         '--save_proposals',
         action='store_true',
         default=False,
         help='Whether to save the train proposals')
 
+    # TODO: bias should be unified
+    parser.add_argument(
+        "--bias",
+        action="store_true",
+        help="whether add bias or not while getting w and h")
+
+    parser.add_argument(
+        "--classwise",
+        action="store_true",
+        help="whether per-category AP and draw P-R Curve or not.")
+
+    parser.add_argument(
+        '--save_prediction_only',
+        action='store_true',
+        default=False,
+        help='Whether to save the evaluation results only')
+
     parser.add_argument(
         '--proposals_path',
         type=str,
         default="sniper/proposals.json",
         help='Train proposals directory')
+
+    parser.add_argument(
+        '-w',
+        '--weights',
+        type=str,
+        default='None',
+        help='model weights')
 
     parser.add_argument(
         '-c',
@@ -56,16 +83,15 @@ def load_config(file_path):
 def run(args, cfg):
 
     # build trainer
-    trainer = Trainer(cfg, mode='train')
+    trainer = Trainer(cfg, mode='eval')
 
     # load weights
-    if args.resume is not None:
-        trainer.resume_weights(args.resume)
-    elif 'pretrain_weights' in cfg and cfg['pretrain_weights']:
-        trainer.load_weights(cfg['pretrain_weights'])
+    if args.weights != 'None':
+        trainer.load_weights(args.weights)
+    else:
+        trainer.load_weights(cfg['weights'])
 
-    # training
-    trainer.train(args.eval)
+    trainer.evaluate()
 
 
 def print_cfg(cfg,rank):
@@ -88,8 +114,11 @@ def print_cfg(cfg,rank):
 def main():
     args = parse_args()
     cfg = load_config(args.config)
+    cfg['bias'] = 1 if args.bias else 0
+    cfg['classwise'] = True if args.classwise else False
     cfg['save_proposals'] = args.save_proposals
     cfg['proposals_path'] = args.proposals_path
+    cfg['save_prediction_only'] = args.save_prediction_only
     if cfg['use_gpu']:
         cfg['place'] = paddle.set_device('gpu')
     else:
