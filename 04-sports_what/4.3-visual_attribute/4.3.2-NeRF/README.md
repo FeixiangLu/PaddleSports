@@ -135,4 +135,3 @@ python test_render_poses.py --config configs/dance.txt --ft_path ./logs/dance_te
 - **不足之处**：
     - 由于图像中背景部分有颜色和躯体很接近，所以抠人像出来的时候，并没有能很好的抠出干净的人像，导致**训练的NeRF场景有部分视角不是很清晰**
     - 训练的数据是由180°布设的相机拍摄的照片，而想推广到现实中的应用，需要**做到单目、或者稀疏相机拍摄的图像就能够生成相应的渲染图**，最初版本的NeRF并不满足此需求。但是近段时间开源一些优秀作品，如[HumanNeRF](https://grail.cs.washington.edu/projects/humannerf/)有很大可能完成这项任务，下一阶段是把这些优秀的作品使用paddle复现出来
-    - 
