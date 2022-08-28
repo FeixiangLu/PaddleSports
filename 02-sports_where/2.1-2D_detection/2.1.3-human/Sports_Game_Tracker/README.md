@@ -217,3 +217,13 @@ PPYOLOEHead:
 使用PP-Human的默认行人追踪模型
 
 [PP-YOLOE Human 检测模型](https://github.com/PaddlePaddle/PaddleDetection/tree/develop/configs/pphuman)
+
+
+
+## 4. 贡献者与问题
+
+AIstudio主页：[链接](https://aistudio.baidu.com/aistudio/personalcenter/thirdview/1033059) 
+
+面临的问题：足球小目标检测效果待优化，后续可能改用PPYOLOE的小目标检测专版
+
+ 
