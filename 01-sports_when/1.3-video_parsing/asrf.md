@@ -1,5 +1,6 @@
+<!---
 [English](../../../en/model_zoo/segmentation/asrf.md) | 简体中文
-
+-->
 # ASRF 视频动作分割模型
 
 ---
@@ -17,7 +18,7 @@
 ASRF模型是在视频动作分割模型MS-TCN上的改进，发表在2021年的WACV上。我们对官方实现的pytorch代码进行复现，在PaddleVideo获得了近似的结果。
 
 <p align="center">
-<img src="../../../images/asrf.png" height=300 width=400 hspace='10'/> <br />
+<img src="./images/asrf.png" height=300 width=400 hspace='10'/> <br />
 ASRF Overview
 </p>
 

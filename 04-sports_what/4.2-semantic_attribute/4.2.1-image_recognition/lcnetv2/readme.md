@@ -47,3 +47,53 @@
 
 
 如果需要使用对比学习可参考[PPSIG:对比学习在监督学习中应用（分类任务） - 飞桨AI Studio (baidu.com)](https://aistudio.baidu.com/aistudio/projectdetail/4358899)项目
+
+
+
+## 3. 单张图片检验
+
+测试图片
+![](nba2k12117.jpg)
+
+
+
+
+
+```python 
+from lcnet_framework import PPLCNetV2_model
+import paddle
+from paddle.vision.transforms import Resize
+import cv2
+import numpy as np
+
+model = PPLCNetV2_model(10)
+model.set_state_dict(paddle.load("0.94.pdparams"))
+
+model.eval()
+img_A = cv2.cvtColor(cv2.imread("nba2k12117.jpg", flags=cv2.IMREAD_COLOR),cv2.COLOR_BGR2RGB)#内容图
+g_input = Resize(size = (360,640))(img_A)
+g_input = g_input[np.newaxis, ...].transpose(0, 3, 1, 2)  # NHWC -> NCHW
+g_input = paddle.to_tensor(g_input)
+g_input = g_input.astype("float32")/127.5-1
+# print(g_input)
+classid = paddle.argmax(model(g_input),axis = 1)
+# print(classid)
+class2id = {
+            "AmericanFootball":0,
+            "Basketball":1,
+            "BikeRacing":2,
+            "CarRacing":3,
+            "Fighting":4,
+            "Hockey":5,
+            "Soccer":6,
+            "TableTennis":7,
+            "Tennis":8,
+            "Volleyball":9
+        } 
+id2class = sorted(class2id.items(),key = lambda x:x[1])
+id2class= [i[0] for i in id2class]
+print("该图片属于",id2class[classid],"类") #该图片属于 Basketball 类
+
+
+```
+

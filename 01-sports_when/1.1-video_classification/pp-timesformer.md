@@ -1,6 +1,8 @@
+<!---
 [English](../../../en/model_zoo/recognition/pp-timesformer.md) | 简体中文
-
+-->
 # PP-TimeSformer视频分类模型
+![image](https://user-images.githubusercontent.com/51101236/186800606-c912c4d8-4156-4d7c-ac3d-923675e285a6.png)
 
 ## 内容
 
@@ -26,14 +28,81 @@
 
 ## 数据准备
 
-K400数据下载及准备请参考[Kinetics-400数据准备](../../dataset/k400.md)
-
 UCF101数据下载及准备请参考[UCF-101数据准备](../../dataset/ucf101.md)
+
+UCF101数据中抽取66类体育类别识别数据，体育数据类别为
+```bash
+sports_type=['BalanceBeam',\
+    'BaseballPitch',\
+    'Basketball',\
+    'BasketballDunk',\
+    'BenchPress',\
+    'Biking',\
+    'Billiards',\
+    'BodyWeightSquats',\
+    'Bowling',\
+    'BoxingPunchingBag',\
+    'BoxingSpeedBag',\
+    'BreastStroke',\
+    'CleanAndJerk',\
+    'CliffDiving',\
+    'CricketBowling',\
+    'CricketShot',\
+    'Diving',\
+    'Fencing',\
+    'FieldHockeyPenalty',\
+    'FloorGymnastics',\
+    'FrisbeeCatch',\
+    'FrontCrawl',\
+    'GolfSwing',\
+    'Hammering',\
+    'HammerThrow',\
+    'HandstandPushups',\
+    'HandstandWalking',\
+    'HighJump',\
+    'HorseRiding',\
+    'HulaHoop',\
+    'IceDancing',\
+    'JavelinThrow',\
+    'JugglingBalls',\
+    'JumpingJack',\
+    'JumpRope',\
+    'Kayaking',\
+    'LongJump',\
+    'Lunges',\
+    'Nunchucks',\
+    'ParallelBars',\
+    'PoleVault',\
+    'PullUps',\
+    'PushUps',\
+    'Rafting',\
+    'RockClimbingIndoor',\
+    'RopeClimbing',\
+    'Rowing',\
+    'Shotput',\
+    'SkateBoarding',\
+    'Skiing',\
+    'SkyDiving',\
+    'SoccerJuggling',\
+    'SoccerPenalty',\
+    'StillRings',\
+    'SumoWrestling',\
+    'Swing',\
+    'TableTennisShot',\
+    'TaiChi',\
+    'TennisSwing',\
+    'ThrowDiscus',\
+    'TrampolineJumping',\
+    'UnevenBars',\
+    'VolleyballSpiking',\
+    'WallPushups',\
+    'YoYo']
+```
 
 
 ## 模型训练
 
-### Kinetics-400数据集训练
+### UCF101-66数据集训练
 
 #### 下载并添加预训练模型
 
@@ -43,7 +112,7 @@ UCF101数据下载及准备请参考[UCF-101数据准备](../../dataset/ucf101.m
    wget https://paddle-imagenet-models-name.bj.bcebos.com/dygraph/ViT_base_patch16_224_pretrained.pdparams
    ```
 
-2. 打开`PaddleVideo/configs/recognition/pptimesformer/pptimesformer_k400_videos.yaml`，将下载好的权重存放路径填写到下方`pretrained:`之后
+2. 打开`pptimesformer_ucf101_videos.yaml`，将下载好的权重存放路径填写到下方`pretrained:`之后
 
     ```yaml
     MODEL:
@@ -55,11 +124,11 @@ UCF101数据下载及准备请参考[UCF-101数据准备](../../dataset/ucf101.m
 
 #### 开始训练
 
-- Kinetics400数据集使用8卡训练，训练方式的启动命令如下:
+- ucf101-66数据集使用8卡训练，训练方式的启动命令如下:
 
     ```bash
     # videos数据格式
-    python3.7 -B -m paddle.distributed.launch --gpus="0,1,2,3,4,5,6,7"  --log_dir=log_pptimesformer  main.py  --validate -c configs/recognition/pptimesformer/pptimesformer_k400_videos.yaml
+    python3.7 -B -m paddle.distributed.launch --gpus="0,1,2,3,4,5,6,7"  --log_dir=log_pptimesformer  main.py  --validate -c configs/pptimesformer_ucf101_videos.yaml
     ```
 
 - 开启amp混合精度训练，可加速训练过程，其训练启动命令如下：
@@ -69,7 +138,7 @@ UCF101数据下载及准备请参考[UCF-101数据准备](../../dataset/ucf101.m
     export FLAGS_cudnn_exhaustive_search=1
     export FLAGS_cudnn_batchnorm_spatial_persistent=1
     # videos数据格式
-    python3.7 -B -m paddle.distributed.launch --gpus="0,1,2,3,4,5,6,7"  --log_dir=log_pptimesformer  main.py --amp --validate -c configs/recognition/pptimesformer/pptimesformer_k400_videos.yaml
+    python3.7 -B -m paddle.distributed.launch --gpus="0,1,2,3,4,5,6,7"  --log_dir=log_pptimesformer  main.py --amp --validate -c configs/pptimesformer_ucf101_videos.yaml
     ```
 
 - 另外您可以自定义修改参数配置，以达到在不同的数据集上进行训练/测试的目的，建议配置文件的命名方式为`模型_数据集名称_文件格式_数据格式_采样方式.yaml`，参数用法请参考[config](../../tutorials/config.md)。
@@ -87,11 +156,11 @@ UCF101数据下载及准备请参考[UCF-101数据准备](../../dataset/ucf101.m
 
   ```bash
   # 8-frames 模型测试命令
-  python3.7 -B -m paddle.distributed.launch --gpus="0,1,2,3,4,5,6,7"  --log_dir=log_pptimesformer  main.py  --test -c configs/recognition/pptimesformer/pptimesformer_k400_videos.yaml -w "output/ppTimeSformer/ppTimeSformer_best.pdparams"
+  python3.7 -B -m paddle.distributed.launch --gpus="0,1,2,3,4,5,6,7"  --log_dir=log_pptimesformer  main.py  --test -c configs/pptimesformer_ucf101_videos.yaml -w "output/ppTimeSformer/ppTimeSformer_best.pdparams"
 
   # 16-frames模型测试命令
   python3.7 -B -m paddle.distributed.launch --gpus="0,1,2,3,4,5,6,7"  --log_dir=log_pptimesformer main.py --test \
-  -c configs/recognition/pptimesformer/pptimesformer_k400_videos.yaml \
+  -c configs/pptimesformer_ucf101_videos.yaml \
   -o MODEL.backbone.num_seg=16 \
   -o MODEL.runtime_cfg.test.num_seg=16 \
   -o MODEL.runtime_cfg.test.avg_type='prob' \
@@ -101,24 +170,20 @@ UCF101数据下载及准备请参考[UCF-101数据准备](../../dataset/ucf101.m
   ```
 
 
-  当测试配置采用如下参数时，在Kinetics-400的validation数据集上的测试指标如下：
+  当测试配置采用如下参数时，在ucf101-66的validation数据集上的测试指标如下：
+  
+  avg_acc1:0.986
+  
+  avg_acc5:0.998
 
-   | backbone           | Sampling method | num_seg | target_size | Top-1 | checkpoints |
-   | :----------------: | :-------------: | :-----: | :---------: | :---- | :----------------------------------------------------------: |
-   | Vision Transformer |   UniformCrop   |   8    |     224     | 78.61 | [ppTimeSformer_k400_8f.pdparams](https://videotag.bj.bcebos.com/PaddleVideo-release2.2/ppTimeSformer_k400_8f.pdparams) |
-   | Vision Transformer | UniformCrop | 8 | 224 | 78.87 | [ppTimeSformer_k400_8f_distill.pdparams](https://videotag.bj.bcebos.com/PaddleVideo-release2.2/ppTimeSformer_k400_8f_distill.pdparams) |
-   | Vision Transformer | UniformCrop | 16 | 224 | 79.44 | [ppTimeSformer_k400_16f_distill.pdparams](https://videotag.bj.bcebos.com/PaddleVideo-release2.2/ppTimeSformer_k400_16f_distill.pdparams) |
-
-
-- 测试时，PP-TimeSformer视频采样策略为使用linspace采样：时序上，从待采样视频序列的第一帧到最后一帧区间内，均匀生成`num_seg`个稀疏采样点（包括端点）；空间上，选择长边两端及中间位置（左中右 或 上中下）3个区域采样。1个视频共采样1个clip。
 
 ## 模型推理
 
 ### 导出inference模型
 
 ```bash
-python3.7 tools/export_model.py -c configs/recognition/pptimesformer/pptimesformer_k400_videos.yaml \
-                                -p data/ppTimeSformer_k400_8f.pdparams \
+python3.7 tools/export_model.py -c configs/pptimesformer_ucf101_videos.yaml \
+                                -p data/ppTimeSformer_ucf101_8f.pdparams \
                                 -o inference/ppTimeSformer
 ```
 
@@ -130,7 +195,7 @@ python3.7 tools/export_model.py -c configs/recognition/pptimesformer/pptimesform
 
 ```bash
 python3.7 tools/predict.py --input_file data/example.avi \
-                           --config configs/recognition/pptimesformer/pptimesformer_k400_videos.yaml \
+                           --config configs/pptimesformer_ucf101_videos.yaml \
                            --model_file inference/ppTimeSformer/ppTimeSformer.pdmodel \
                            --params_file inference/ppTimeSformer/ppTimeSformer.pdiparams \
                            --use_gpu=True \
@@ -145,7 +210,7 @@ Current video file: data/example.avi
         top-1 score: 0.9997474551200867
 ```
 
-可以看到，使用在Kinetics-400上训练好的ppTimeSformer模型对`data/example.avi`进行预测，输出的top1类别id为`5`，置信度为0.99。通过查阅类别id与名称对应表`data/k400/Kinetics-400_label_list.txt`，可知预测类别名称为`archery`。
+可以看到，训练好的ppTimeSformer模型对`data/example.avi`进行预测，输出的top1类别id为`5`，置信度为0.99。
 
 ## 参考论文
 

@@ -118,7 +118,9 @@ PP-Human原有的参数：
 
 
 
-## 3. 模型训练
+## 3. 模型训练与二次开发
+
+**Sports_Game_tracker**由**PP-Human**二次开发而来，可视化功能扩展教程等可参阅：[利用PP-Human完成足球赛追踪二次开发](../../../../10-applications/01-football/PP-Human_football/README.md)
 
 ### 3.1 足球追踪
 
@@ -215,3 +217,13 @@ PPYOLOEHead:
 使用PP-Human的默认行人追踪模型
 
 [PP-YOLOE Human 检测模型](https://github.com/PaddlePaddle/PaddleDetection/tree/develop/configs/pphuman)
+
+
+
+## 4. 贡献者与问题
+
+AIstudio主页：[链接](https://aistudio.baidu.com/aistudio/personalcenter/thirdview/1033059) 
+
+面临的问题：足球小目标检测效果待优化，后续可能改用PPYOLOE的小目标检测专版
+
+ 

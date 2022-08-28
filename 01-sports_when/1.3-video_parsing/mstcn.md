@@ -1,5 +1,6 @@
+<!---
 [English](../../../en/model_zoo/segmentation/mstcn.md) | 简体中文
-
+-->
 # MS-TCN 视频动作分割模型
 
 ---
@@ -17,7 +18,7 @@
 MS-TCN模型是视频动作分割模型的经典的模型，发表在2019年的CVPR上。我们对官方实现的pytorch代码进行一些优化，在PaddleVideo获得了更高精度的结果。
 
 <p align="center">
-<img src="../../../images/mstcn.PNG" height=300 width=400 hspace='10'/> <br />
+<img src="./images/mstcn.PNG" height=300 width=400 hspace='10'/> <br />
 MS-TCN Overview
 </p>
 

@@ -1,4 +1,4 @@
-# PPSIG：PaddleSports 足球记分牌识别（封装版）
+# PPSIG：PaddleSports 足球记分牌识别任务
 
 > 详细算法主要原理核心请见:[足球记分牌提取项目(解释版) - 飞桨AI Studio (baidu.com)](https://aistudio.baidu.com/aistudio/projectdetail/4378771)
 >
@@ -7,6 +7,26 @@
 
 
 >任务简要：输入一段足球比赛视频和预设的队伍的txt，识别记分牌的信息，得到视频每一秒的比赛时间，比分，比赛队伍名称。实现视频时间与比赛时间相对应（因为视频刚开始往往会有与比赛无关的信息，并且视频中间可能存在比赛的跳跃，比如在视频2分30秒时比赛时间为1分40秒，但是视频2分31秒时比赛时间为3分11秒），输出的txt文件包含比赛跳跃的时刻和比分变动的时刻，这样就可以输入比赛时间得到对应视频时间。
+
+## 简单算法思想介绍：
+
+1. 每隔几秒通过PaddleOCR识别足球比赛图片，定位记分牌刚出现比赛时间的视频时间区间。然后再具体定位第一次视频出现比赛时间信息是哪一秒。
+2. 然后通过制作足球记分牌Mask，更好的排除其他信息干扰。
+3. 然后接下来逐帧识别视频足球比赛记分牌信息并记录，将视频时间与比赛时间进行对应。
+
+>足球记分牌Mask基本效果展示（电视台台标等与记分牌无关信息在后续算法中计算与时间位置的距离会进行处理）
+>
+>![img](https://ai-studio-static-online.cdn.bcebos.com/ca6fe63da00c47d9898353b60d9cf6a05fb263c05ff946c9acba15fab7f21106)
+>
+>![img](https://ai-studio-static-online.cdn.bcebos.com/c660ff555b524c3fb3e233546299bfadb75e5dd0657549a1b93ad85f534a9eb4)
+>
+>![img](https://ai-studio-static-online.cdn.bcebos.com/85611b318f2a4fe8b9478ae8e829837a5b8eca97f5e246c9b7de1f70e68918d1)
+
+
+
+> PaddleOCR的识别效果：（使用记分牌Mask，这里简单的把台标遮掉进行展示）
+>
+> ![img](https://ai-studio-static-online.cdn.bcebos.com/e172a764c6904a36918d016896e4b3c4adfe55b8968b4687a1c9f99ebc868bf4)
 
 ## 1.测试视频介绍
 该视频是我自己制作的，就是人工把完整的一个视频中一些片段抽取出来，从而让视频出现跳跃，然后我一共制作了两个视频进行测试放在了[test_soccervideo](https://aistudio.baidu.com/aistudio/datasetdetail/162746)，分别为myvideo.mp4和myvideo1.mp4。

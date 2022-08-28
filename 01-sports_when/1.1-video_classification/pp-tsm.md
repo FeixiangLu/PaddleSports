@@ -1,6 +1,8 @@
+<!---
 [English](../../../en/model_zoo/recognition/pp-tsm.md) | 简体中文
-
+-->
 # PP-TSM视频分类模型
+![image](https://user-images.githubusercontent.com/51101236/186800707-28c5e94c-4d69-43c1-b569-059c320881b2.png)
 
 ---
 ## 内容
@@ -34,14 +36,78 @@
 
 ## 数据准备
 
-K400数据下载及准备请参考[Kinetics-400数据准备](../../dataset/k400.md)
-
 UCF101数据下载及准备请参考[UCF-101数据准备](../../dataset/ucf101.md)
-
-
+UCF101数据中抽取66类体育类别识别数据，体育数据类别为
+```bash
+sports_type=['BalanceBeam',\
+    'BaseballPitch',\
+    'Basketball',\
+    'BasketballDunk',\
+    'BenchPress',\
+    'Biking',\
+    'Billiards',\
+    'BodyWeightSquats',\
+    'Bowling',\
+    'BoxingPunchingBag',\
+    'BoxingSpeedBag',\
+    'BreastStroke',\
+    'CleanAndJerk',\
+    'CliffDiving',\
+    'CricketBowling',\
+    'CricketShot',\
+    'Diving',\
+    'Fencing',\
+    'FieldHockeyPenalty',\
+    'FloorGymnastics',\
+    'FrisbeeCatch',\
+    'FrontCrawl',\
+    'GolfSwing',\
+    'Hammering',\
+    'HammerThrow',\
+    'HandstandPushups',\
+    'HandstandWalking',\
+    'HighJump',\
+    'HorseRiding',\
+    'HulaHoop',\
+    'IceDancing',\
+    'JavelinThrow',\
+    'JugglingBalls',\
+    'JumpingJack',\
+    'JumpRope',\
+    'Kayaking',\
+    'LongJump',\
+    'Lunges',\
+    'Nunchucks',\
+    'ParallelBars',\
+    'PoleVault',\
+    'PullUps',\
+    'PushUps',\
+    'Rafting',\
+    'RockClimbingIndoor',\
+    'RopeClimbing',\
+    'Rowing',\
+    'Shotput',\
+    'SkateBoarding',\
+    'Skiing',\
+    'SkyDiving',\
+    'SoccerJuggling',\
+    'SoccerPenalty',\
+    'StillRings',\
+    'SumoWrestling',\
+    'Swing',\
+    'TableTennisShot',\
+    'TaiChi',\
+    'TennisSwing',\
+    'ThrowDiscus',\
+    'TrampolineJumping',\
+    'UnevenBars',\
+    'VolleyballSpiking',\
+    'WallPushups',\
+    'YoYo']
+```
 ## 模型训练
 
-### Kinetics-400数据集训练
+### UCF101-66数据集训练
 
 #### 下载并添加预训练模型
 
@@ -65,16 +131,16 @@ MODEL:
 
 #### 开始训练
 
-- Kinetics400数据集使用8卡训练，frames格式数据，uniform训练方式的启动命令如下:
+- UCF101-66数据集使用8卡训练，frames格式数据，uniform训练方式的启动命令如下:
 
 ```bash
-python3.7 -B -m paddle.distributed.launch --gpus="0,1,2,3,4,5,6,7"  --log_dir=log_pptsm  main.py  --validate -c configs/recognition/pptsm/pptsm_k400_frames_uniform.yaml
+python3.7 -B -m paddle.distributed.launch --gpus="0,1,2,3,4,5,6,7"  --log_dir=log_pptsm  main.py  --validate -c configs/recognition/pptsm/pptsm_ucf101-66_frames_uniform.yaml
 ```
 
-- Kinetics400数据集使用8卡训练，videos格式数据，uniform训练方式的启动命令如下:
+- UCF101-66数据集使用8卡训练，videos格式数据，uniform训练方式的启动命令如下:
 
 ```bash
-python3.7 -B -m paddle.distributed.launch --gpus="0,1,2,3,4,5,6,7"  --log_dir=log_pptsm  main.py  --validate -c configs/recognition/pptsm/pptsm_k400_videos_uniform.yaml
+python3.7 -B -m paddle.distributed.launch --gpus="0,1,2,3,4,5,6,7"  --log_dir=log_pptsm  main.py  --validate -c configs/recognition/pptsm/pptsm_ucf101-66_videos_uniform.yaml
 ```
 
 - 开启amp混合精度训练，可加速训练过程，其训练启动命令如下：
@@ -84,19 +150,19 @@ export FLAGS_conv_workspace_size_limit=800 #MB
 export FLAGS_cudnn_exhaustive_search=1
 export FLAGS_cudnn_batchnorm_spatial_persistent=1
 
-python3.7 -B -m paddle.distributed.launch --gpus="0,1,2,3,4,5,6,7"  --log_dir=log_pptsm  main.py  --amp --validate -c configs/recognition/pptsm/pptsm_k400_frames_uniform.yaml
+python3.7 -B -m paddle.distributed.launch --gpus="0,1,2,3,4,5,6,7"  --log_dir=log_pptsm  main.py  --amp --validate -c configs/recognition/pptsm/pptsm_ucf101-66_frames_uniform.yaml
 ```
 
-- Kinetics400数据集frames格式数据，dense训练方式的启动命令如下:
+- UCF101-66数据集frames格式数据，dense训练方式的启动命令如下:
 
 ```bash
-python3.7 -B -m paddle.distributed.launch --gpus="0,1,2,3,4,5,6,7"  --log_dir=log_pptsm  main.py  --validate -c configs/recognition/pptsm/pptsm_k400_frames_dense.yaml
+python3.7 -B -m paddle.distributed.launch --gpus="0,1,2,3,4,5,6,7"  --log_dir=log_pptsm  main.py  --validate -c configs/recognition/pptsm/pptsm_ucf101-66_frames_dense.yaml
 ```
 
-- Kinetics400数据集frames格式数据，dense训练方式，ResNet101作为Backbone的启动命令如下:
+- UCF101-66数据集frames格式数据，dense训练方式，ResNet101作为Backbone的启动命令如下:
 
 ```bash
-python3.7 -B -m paddle.distributed.launch --gpus="0,1,2,3,4,5,6,7"  --log_dir=log_pptsm  main.py  --validate -c configs/recognition/pptsm/pptsm_k400_frames_dense_r101.yaml
+python3.7 -B -m paddle.distributed.launch --gpus="0,1,2,3,4,5,6,7"  --log_dir=log_pptsm  main.py  --validate -c configs/recognition/pptsm/pptsm_ucf101-66_frames_dense_r101.yaml
 ```
 
 - 另外您可以自定义修改参数配置，以达到在不同的数据集上进行训练/测试的目的，配置文件命名方式为`模型_数据集_文件格式_数据格式_采样方式.yaml`，参数用法请参考[config](../../tutorials/config.md)。
@@ -113,37 +179,25 @@ Already save the best model (top1 acc)0.7454
 - 对dense采样方式，需单独运行测试代码，其启动命令如下：
 
 ```bash
-python3 main.py --test -c configs/recognition/pptsm/pptsm_k400_frames_dense.yaml -w output/ppTSM/ppTSM_best.pdparams
+python3 main.py --test -c configs/recognition/pptsm/pptsm_ucf101-66_frames_dense.yaml -w output/ppTSM/ppTSM_best.pdparams
 ```
 
 - 通过`-c`参数指定配置文件，通过`-w`指定权重存放路径进行模型测试。
 
 
-Kinetics400数据集测试精度:
-
-| backbone | distill | Sampling method | num_seg | target_size | Top-1 | checkpoints |
-| :------: | :----------: | :----: | :----: | :----: | :----: | :---- |
-| ResNet50 | False | Uniform | 8 | 224 | 74.54 | [ppTSM_k400_uniform.pdparams](https://videotag.bj.bcebos.com/PaddleVideo-release2.1/PPTSM/ppTSM_k400_uniform.pdparams) |
-| ResNet50 | False | Dense | 8 | 224 | 75.69 | [ppTSM_k400_dense.pdparams](https://videotag.bj.bcebos.com/PaddleVideo-release2.1/PPTSM/ppTSM_k400_dense.pdparams) |
-| ResNet50 | True | Uniform | 8 | 224 | 75.11 | [ppTSM_k400_uniform_distill.pdparams](https://videotag.bj.bcebos.com/PaddleVideo-release2.1/PPTSM/ppTSM_k400_uniform_distill.pdparams) |
-| ResNet50 | True | Dense | 8 | 224 | 76.16 | [ppTSM_k400_dense_distill.pdparams](https://videotag.bj.bcebos.com/PaddleVideo-release2.1/PPTSM/ppTSM_k400_dense_distill.pdparams) |
-| ResNet101 | True | Uniform | 8 | 224 | 76.35 | [ppTSM_k400_uniform_distill_r101.pdparams](https://videotag.bj.bcebos.com/PaddleVideo-release2.2/ppTSM_k400_uniform_distill_r101.pdparams) |
-| ResNet101 | False | Dense | 8 | 224 | 77.15 | [ppTSM_k400_dense_r101.pdparams](https://videotag.bj.bcebos.com/PaddleVideo-release2.2/ppTSM_k400_dense_r101.pdparams) |
-
-- Uniform采样: 时序上，等分成`num_seg`段，每段中间位置采样1帧；空间上，中心位置采样。1个视频共采样1个clips。
-
-- Dense采样：时序上，先等分成10个片段，每段从起始位置开始，以`64//num_seg`为间隔连续采样`num_seg`帧；空间上，左中，中心，右中3个位置采样。1个视频共采样`10*3=30`个clips。
-
-- distill为`True`表示使用了蒸馏所得的预训练模型。
-
+UCF101-66数据集测试精度:
+```bash
+avg_acc1:0.974
+avg_acc5:0.994
+```
 
 ## 模型推理
 
 ### 导出inference模型
 
 ```bash
-python3.7 tools/export_model.py -c configs/recognition/pptsm/pptsm_k400_frames_uniform.yaml \
-                                -p data/ppTSM_k400_uniform.pdparams \
+python3.7 tools/export_model.py -c configs/recognition/pptsm/pptsm_ucf101-66_frames_uniform.yaml \
+                                -p data/ppTSM_ucf101-66_uniform.pdparams \
                                 -o inference/ppTSM
 ```
 
@@ -155,24 +209,12 @@ python3.7 tools/export_model.py -c configs/recognition/pptsm/pptsm_k400_frames_u
 
 ```bash
 python3.7 tools/predict.py --input_file data/example.avi \
-                           --config configs/recognition/pptsm/pptsm_k400_frames_uniform.yaml \
+                           --config configs/recognition/pptsm/pptsm_ucf101-66_frames_uniform.yaml \
                            --model_file inference/ppTSM/ppTSM.pdmodel \
                            --params_file inference/ppTSM/ppTSM.pdiparams \
                            --use_gpu=True \
                            --use_tensorrt=False
 ```
-
-
-输出示例如下:
-
-```
-Current video file: data/example.avi
-	top-1 class: 5
-	top-1 score: 0.9907386302947998
-```
-
-
-可以看到，使用在Kinetics-400上训练好的PP-TSM模型对`data/example.avi`进行预测，输出的top1类别id为`5`，置信度为0.99。通过查阅类别id与名称对应表`data/k400/Kinetics-400_label_list.txt`，可知预测类别名称为`archery`。
 
 
 ## 参考论文
