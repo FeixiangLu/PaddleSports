@@ -17,6 +17,9 @@
 
 AIStudio项目： [基于飞桨实现乒乓球时序动作定位大赛: B榜第一名方案](https://aistudio.baidu.com/aistudio/projectdetail/3545680?shared=1)
 
+## 安装
+需Fork[独立分支](https://github.com/chaineypung/PaddleVideo/tree/new_branch), 并按照[requirements.txt](https://github.com/chaineypung/PaddleVideo/blob/67e4b790bafabe62c1d112eb19e4136ebb18c0f2/applications/TCANet++/requirements.txt)进行安装配置。
+
 ## 数据准备
 - 数据集包含了19-21赛季兵乓球国际（世界杯、世锦赛、亚锦赛，奥运会）国内（全运会，乒超联赛）比赛标准单机位高清转播画面特征信息。其中包含912条视频特征文件，每个视频时长在0～6分钟不等，特征维度为2048，以pkl格式保存。我们对特征数据中面朝镜头的运动员的回合内挥拍动作进行了标注，单个动作时常在0～2秒不等，训练数据为729条标注视频，A测数据为91条视频，训练数据标签以json格式给出
 
