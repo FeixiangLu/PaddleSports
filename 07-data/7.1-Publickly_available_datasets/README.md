@@ -12,6 +12,10 @@
 |Sports 1M|---|2014|分类|[https://static.googleusercontent.com/media/research.google.com/zh-CN//pubs/archive/42455.pdf](https://static.googleusercontent.com/media/research.google.com/zh-CN//pubs/archive/42455.pdf)|
 |Volleyball|排球|2016|目标检测|[https://arxiv.org/pdf/1511.06040.pdf](https://arxiv.org/pdf/1511.06040.pdf)|
 |NCAA|篮球|2016|分类，事件定位|[https://arxiv.org/pdf/1511.02917.pdf](https://arxiv.org/pdf/1511.02917.pdf)|
+|TenniSet|网球|2017|分类|[https://ieeexplore.ieee.org/document/8227494](https://ieeexplore.ieee.org/document/8227494)|
+|SPIROUDOME|篮球|2017|目标检测|[https://www.sciencedirect.com/science/article/abs/pii/S1077314217300036](https://www.sciencedirect.com/science/article/abs/pii/S1077314217300036)|
+|Diving48|跳水|2018|分类|[https://www.ecva.net/papers/eccv_2018/papers_ECCV/papers/Yingwei_Li_RESOUND_Towards_Action_ECCV_2018_paper.pdf](https://www.ecva.net/papers/eccv_2018/papers_ECCV/papers/Yingwei_Li_RESOUND_Towards_Action_ECCV_2018_paper.pdf)|
+|TTStroke-21|乒乓球|2018|分类|[https://ieeexplore.ieee.org/document/8516488](https://ieeexplore.ieee.org/document/8516488)|
 
 更多数据集和模型介绍请参考
 ```
