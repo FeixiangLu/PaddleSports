@@ -4,7 +4,7 @@
 |CABASE|手球，壁球|2006|分类|[https://vision.fe.uni-lj.si/cvbase06/downloads/CVBASE06manual.pdf](https://vision.fe.uni-lj.si/cvbase06/downloads/CVBASE06manual.pdf)|
 |UCF Sports|---|2008|分类|[https://www.crcv.ucf.edu/papers/cvpr2008/7.pdf](https://www.crcv.ucf.edu/papers/cvpr2008/7.pdf)|
 |APIDIS|篮球|2008|目标检测|[https://www.researchgate.net/publication/229017805_Distributed_video_acquisition_and_annotation_for_sport-event_summarization](https://www.researchgate.net/publication/229017805_Distributed_video_acquisition_and_annotation_for_sport-event_summarization)|
-|Soccer-ISSIA|足球|目标跟踪|[https://www.researchgate.net/publication/224600824_A_Semi-automatic_System_for_Ground_Truth_Generation_of_Soccer_Video_Sequences](https://www.researchgate.net/publication/224600824_A_Semi-automatic_System_for_Ground_Truth_Generation_of_Soccer_Video_Sequences)|
+|Soccer-ISSIA|足球|2009|目标跟踪|[https://www.researchgate.net/publication/224600824_A_Semi-automatic_System_for_Ground_Truth_Generation_of_Soccer_Video_Sequences](https://www.researchgate.net/publication/224600824_A_Semi-automatic_System_for_Ground_Truth_Generation_of_Soccer_Video_Sequences)|
 
 更多数据集和模型介绍请参考
 ```
