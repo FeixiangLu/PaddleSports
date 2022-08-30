@@ -39,7 +39,7 @@ def parse_args():
         '-c',
         '--config',
         type=str,
-        default="config/ppyoloe_crn_l_300e_coco.yml",
+        default="configs/ppyoloe_crn_l_300e_coco.yml",
         help='config')
 
     args = parser.parse_args()

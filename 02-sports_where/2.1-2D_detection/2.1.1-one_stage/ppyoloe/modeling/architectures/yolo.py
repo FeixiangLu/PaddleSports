@@ -86,16 +86,7 @@ class YOLOv3(nn.Layer):
             self.yolo_head = globals()[head_cls](**args)
 
         # build post_process
-        for post_process_cls, args in yolo_head.items():
-            for k, v in args.items():
-                # build object args
-                if isinstance(v, dict) and v.get('name', False):
-                    _args = v
-                    obj_cls = _args['name']
-                    del _args['name']
-                    args[k] = globals()[obj_cls](**_args)
-
-            self.post_process = globals()[post_process_cls](**args)
+        self.post_process = post_process
 
         self.for_mot = for_mot
         self.return_idx = isinstance(post_process, JDEBBoxPostProcess)
