@@ -135,10 +135,12 @@ class BaseDataLoader(object):
                  dataset,
                  worker_num,
                  batch_sampler=None,
-                 return_list=False):
+                 return_list=False,
+                 infer=False):
         self.dataset = dataset
         # self.dataset.check_or_download_dataset() xxx
-        self.dataset.parse_dataset()
+        if not infer:
+            self.dataset.parse_dataset()
         # get datasets
         self.dataset.set_transform(self._sample_transforms)
         # set kwargs

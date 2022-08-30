@@ -2,20 +2,47 @@ from __future__ import absolute_import
 from __future__ import division
 import yaml
 import paddle
-import argparse
+import argparse,os
+import glob
 from utils.logger import setup_logger
 from core.trainer import *
 
 logger = setup_logger('eval')
 
 
+def get_test_images(infer_dir, infer_img):
+    """
+    Get image path list in TEST mode
+    """
+    assert infer_img is not None or infer_dir is not None, \
+        "--infer_img or --infer_dir should be set"
+    assert infer_img is None or os.path.isfile(infer_img), \
+            "{} is not a file".format(infer_img)
+    assert infer_dir is None or os.path.isdir(infer_dir), \
+            "{} is not a directory".format(infer_dir)
+
+    # infer_img has a higher priority
+    if infer_img and os.path.isfile(infer_img):
+        return [infer_img]
+
+    images = set()
+    infer_dir = os.path.abspath(infer_dir)
+    assert os.path.isdir(infer_dir), \
+        "infer_dir {} is not a directory".format(infer_dir)
+    exts = ['jpg', 'jpeg', 'png', 'bmp']
+    exts += [ext.upper() for ext in exts]
+    for ext in exts:
+        images.update(glob.glob('{}/*.{}'.format(infer_dir, ext)))
+    images = list(images)
+
+    assert len(images) > 0, "no image found in {}".format(infer_dir)
+    logger.info("Found {} inference images in total.".format(len(images)))
+
+    return images
+
+
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--eval",
-        action='store_true',
-        default=False,
-        help="Whether to perform evaluation in train")
 
     parser.add_argument(
         "--amp",
@@ -25,12 +52,6 @@ def parse_args():
 
     parser.add_argument(
         "-r", "--resume", default=None, help="weights path for resume")
-
-    parser.add_argument(
-        '--save_proposals',
-        action='store_true',
-        default=False,
-        help='Whether to save the train proposals')
 
     # TODO: bias should be unified
     parser.add_argument(
@@ -50,10 +71,47 @@ def parse_args():
         help='Whether to save the evaluation results only')
 
     parser.add_argument(
-        '--proposals_path',
+        "--infer_dir",
         type=str,
-        default="sniper/proposals.json",
-        help='Train proposals directory')
+        default=None,
+        help="Directory for images to perform inference on.")
+
+    parser.add_argument(
+        "--infer_img",
+        type=str,
+        default=None,
+        help="Image path, has higher priority over --infer_dir")
+
+    parser.add_argument(
+        "--output_dir",
+        type=str,
+        default="output",
+        help="Directory for storing the output visualization files.")
+
+    parser.add_argument(
+        "--draw_threshold",
+        type=float,
+        default=0.5,
+        help="Threshold to reserve the result for visualization.")
+
+    parser.add_argument(
+        "--slim_config",
+        default=None,
+        type=str,
+        help="Configuration file of slim method.")
+
+    parser.add_argument(
+        "--save_results",
+        type=bool,
+        default=False,
+        help="Whether to save inference results to output_dir.")
+
+    parser.add_argument(
+        '-c',
+        '--config',
+        type=str,
+        default="config/picodet_s_320_coco_lcnet.yml",
+        help='config')
 
     parser.add_argument(
         '-w',
@@ -61,13 +119,6 @@ def parse_args():
         type=str,
         default='None',
         help='model weights')
-
-    parser.add_argument(
-        '-c',
-        '--config',
-        type=str,
-        default="configs/ppyoloe_crn_l_300e_coco.yml",
-        help='config')
 
     args = parser.parse_args()
     return args
@@ -83,7 +134,7 @@ def load_config(file_path):
 def run(args, cfg):
 
     # build trainer
-    trainer = Trainer(cfg, mode='eval')
+    trainer = Trainer(cfg, mode='test')
 
     # load weights
     if args.weights != 'None':
@@ -91,7 +142,14 @@ def run(args, cfg):
     else:
         trainer.load_weights(cfg['weights'])
 
-    trainer.evaluate()
+    images = get_test_images(args.infer_dir, args.infer_img)
+
+    trainer.predict(
+        images,
+        draw_threshold=args.draw_threshold,
+        output_dir=args.output_dir,
+        save_results=args.save_results,
+    )
 
 
 def print_cfg(cfg,rank):
@@ -114,11 +172,6 @@ def print_cfg(cfg,rank):
 def main():
     args = parse_args()
     cfg = load_config(args.config)
-    cfg['bias'] = 1 if args.bias else 0
-    cfg['classwise'] = True if args.classwise else False
-    cfg['save_proposals'] = args.save_proposals
-    cfg['proposals_path'] = args.proposals_path
-    cfg['save_prediction_only'] = args.save_prediction_only
     if cfg['use_gpu']:
         cfg['place'] = paddle.set_device('gpu')
     else:
