@@ -36,7 +36,8 @@ work目录下的文件夹说明：
 python train.py 
 
 ```
-
+# 贡献者
+COOLGUY [AiStudio主页](https://aistudio.baidu.com/aistudio/usercenter)
 
 
 
