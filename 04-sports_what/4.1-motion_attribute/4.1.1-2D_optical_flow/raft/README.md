@@ -64,4 +64,4 @@ python infer.py  # 推理参数在infer.py，并且写好了图片对推理、�
 ![](https://ai-studio-static-online.cdn.bcebos.com/b25f89cf10624a4a8d8e4004de61cd91c6baaf0454c94bbfb8b773071c54e361)
 
 # 贡献者
-COOLGUY [AiStudio主页](https://aistudio.baidu.com/aistudio/usercenter)
+COOLGUY [AiStudio主页](https://aistudio.baidu.com/aistudio/personalcenter/thirdview/54915)
