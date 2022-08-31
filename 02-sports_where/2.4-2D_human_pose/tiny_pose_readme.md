@@ -6,7 +6,7 @@
 </div>
 
 ## 简介
-PP-TinyPose是PaddleDetecion针对移动端设备优化的实时关键点检测模型，可流畅地在移动端设备上执行多人姿态估计任务。借助PaddleDetecion自研的优秀轻量级检测模型[PicoDet](../../picodet/README.md)，我们同时提供了特色的轻量级垂类行人检测模型。TinyPose的运行环境有以下依赖要求：
+PP-TinyPose是PaddleDetecion针对移动端设备优化的实时关键点检测模型，可流畅地在移动端设备上执行多人姿态估计任务。借助PaddleDetecion自研的优秀轻量级检测模型PicoDet，我们同时提供了特色的轻量级垂类行人检测模型。TinyPose的运行环境有以下依赖要求：
 - [PaddlePaddle](https://github.com/PaddlePaddle/Paddle)>=2.2
 
 如希望在移动端部署，则还需要：
