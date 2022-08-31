@@ -1,17 +1,13 @@
 简体中文 | [English](https://gitee.com/paddlepaddle/PaddleDetection/blob/release/2.4/configs/ppyoloe/README.md)
 
-# PP-YOLOE
-
+# 使用PP-YOLOE/视频中的运动员进行检测、定位
 ## 简介
 PP-YOLOE是基于PP-YOLOv2的卓越的单阶段Anchor-free模型，超越了多种流行的yolo模型。
 PP-YOLOE有一系列的模型，即s/m/l/x，可以通过width multiplier和depth multiplier配置。
 PP-YOLOE避免使用诸如deformable convolution或者matrix nms之类的特殊算子，以使其能轻松地部署在多种多样的硬件上。
 更多细节可以参考我们的[report](https://arxiv.org/abs/2203.16250)。
 
-* (图片)
-<div align="center">
-  <img src="" width=500 />
-</div>
+![](https://ai-studio-static-online.cdn.bcebos.com/298c772e8ead4ce4bdabae5313af2e7985cb26d8162a4518a3ea5de864d74466)
 
 PP-YOLOE-l在COCO test-dev2017达到了51.4的mAP, 同时其速度在Tesla V100上达到了78.1 
 FPS。PP-YOLOE-s/m/x同样具有卓越的精度速度性价比, 其精度速度可以在[模型库](#模型库)中找到。
@@ -41,6 +37,9 @@ PP-YOLOE由以下方法组成
 * 更多详情信息可以参考[连接](https://gitee.com/paddlepaddle/PaddleDetection/blob/release/2.4/configs/ppyoloe/README_cn.md) 
 
 ## 使用说明
+
+* 如果您想了解具体细节可以参考AIstudio-[使用Picodet/PP-yoloe检测运动员和足球](https://aistudio.baidu.com/aistudio/projectdetail/4479428?contributionType=1&sUid=206265&shared=1&ts=1661954440536)
+
 
 ### 训练
 
@@ -78,6 +77,19 @@ CUDA_VISIBLE_DEVICES=0 python eval.py -c configs/ppyoloe_crn_l_300e_coco.yml -w 
 ```
 
 在coco test-dev2017上评估，请先从[COCO数据集下载](https://cocodataset.org/#download)下载COCO test-dev2017数据集，然后解压到COCO数据集文件夹并像`configs/ppyolo/ppyolo_test.yml`一样配置`EvalDataset`。
+
+
+### 推理测试
+
+您可以使用以下命令进行推理测试
+
+```shell
+ python3 infer.py \
+-c configs/configs/ppyoloe_crn_l_300e_coco.yml \
+-w output/PPyoloe/model_final \
+--infer_img=test.jpeg
+```
+
 
 
 ## 推理部署

@@ -6,11 +6,7 @@
 * `PP-PicoDet`是PaddleDetection中提出的全新轻量级系列模型，在移动端具有卓越的性能。
 * 如果您想获得关于`PP-PicoDet`更详细的信息请转到[PaddleDetection/picodet](https://github.com/paddlepaddle/PaddleDetection/tree/release/2.4/configs/picodet)
 
-* 对图像/视频中的运动员进行检测、定位(图片)
-<div align="center">
-  <img src="../../docs/images/picodet_map.png" width='600'/>
-</div>
-
+![](https://ai-studio-static-online.cdn.bcebos.com/7eed45beb265486083acd6ed5d81bbd12475b7bec2864814b5d431ff8ac07ec8)
 
 ## 简介
 
@@ -65,6 +61,8 @@ PP-PicoDet模型有如下特点：
 - ARM测试的benchmark脚本来自: [MobileDetBenchmark](https://github.com/JiweiMaster/MobileDetBenchmark)。
 
 ## 快速开始
+
+* 如果您想了解具体细节可以参考AIstudio-[使用Picodet/PP-yoloe检测运动员和足球](https://aistudio.baidu.com/aistudio/projectdetail/4479428?contributionType=1&sUid=206265&shared=1&ts=1661954440536)
 
 <details open>
 <summary>依赖包:</summary>
@@ -123,6 +121,20 @@ python train.py -c configs/picodet_s_320_coco_lcnet.yml --eval
 
 </details>
 
+
+<details>
+<summary>推理预测</summary>
+
+* 正确配置好configs路径下yml文件的TestDataset项(这样可以正确显示您的label)
+
+```shell
+ python3 infer.py \
+-c configs/picodet_m_320_coco_lcnet.yml \
+-w output/Picodet/model_final \
+--infer_img=test.jpeg
+```
+
+</details>
 
 ## 部署
 

@@ -11,7 +11,6 @@
 
 [![img](https://ai-studio-static-online.cdn.bcebos.com/c231a51ac63a4f708371fa43db98787fb3637d64f4a04c4b88ee381f438f4738)](https://player.bilibili.com/player.html?aid=941024504&bvid=BV11W4y1m7Vc&cid=776635613&page=1)
 
-![](https://ai-studio-static-online.cdn.bcebos.com/c231a51ac63a4f708371fa43db98787fb3637d64f4a04c4b88ee381f438f4738)
 ## 快速开始
 
 #### AIstudio 示例项目连接[Face.eval人脸识别](https://aistudio.baidu.com/aistudio/projectdetail/2305787?contributionType=1&sUid=206265&shared=1&ts=1661685508709)
@@ -138,11 +137,6 @@ paddleslim==2.1.0
 |[Vggface2_FP]()    |-              |-            |-                |-                |-                  |-                |-              |-            |
 
 
-
-* 训练&验证情况（图片）
-  
-    <img src="https://github.com/Reatris/lab/blob/master/fig1.png" width="1000px"/>
-      
 
 ****
 

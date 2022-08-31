@@ -398,11 +398,17 @@ class Trainer(object):
                 draw_threshold=0.5,
                 output_dir='output',
                 save_results=False):
-        self.dataset = SniperCOCODataSet()
+        self.dataset = SniperCOCODataSet(
+            dataset_dir=self.cfg['TestDataset']['ImageFolder']['dataset_dir'],
+            anno_path=self.cfg['TestDataset']['ImageFolder']['anno_path'],
+        )
 
         self.dataset.set_images(images)
 
-        loader_ = TestReader()
+        loader_ = TestReader(
+            sample_transforms = self.cfg['TestReader']['sample_transforms'],
+            batch_size = self.cfg['TestReader']['batch_size']
+        )
         loader = loader_(
             dataset=self.dataset,
             worker_num=0,
@@ -457,8 +463,6 @@ class Trainer(object):
         for step_id, data in enumerate(tqdm(loader)):
             self.status['step_id'] = step_id
             # forward
-            print(data)
-            print(1/0)
             outs = self.model(data)
 
             for _m in metrics:
@@ -475,9 +479,9 @@ class Trainer(object):
             results.append(outs)
 
         # sniper
-        if type(self.dataset) == SniperCOCODataSet:
-            results = self.dataset.anno_cropper.aggregate_chips_detections(
-                results)
+        # if type(self.dataset) == SniperCOCODataSet:
+        #     results = self.dataset.anno_cropper.aggregate_chips_detections(
+        #         results)
 
         for _m in metrics:
             _m.accumulate()
@@ -516,3 +520,13 @@ class Trainer(object):
                 image.save(save_name, quality=95)
 
                 start = end
+
+    def _get_save_image_name(self, output_dir, image_path):
+        """
+        Get save image name from source image path.
+        """
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+        image_name = os.path.split(image_path)[-1]
+        name, ext = os.path.splitext(image_name)
+        return os.path.join(output_dir, "{}".format(name)) + ext
