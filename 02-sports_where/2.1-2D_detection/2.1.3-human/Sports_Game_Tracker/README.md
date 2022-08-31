@@ -4,9 +4,9 @@
 
 
 
-![test-tracker](README.assets/football.gif)
-![](README.assets/football1.gif)
-![](README.assets/ski.gif)
+![test-tracker](https://ai-studio-static-online.cdn.bcebos.com/38361420e9864640be9af89c1f8b389f1207a5c7e79e49908c958a93d1a436ea)
+![](https://ai-studio-static-online.cdn.bcebos.com/6f733129eb954b9f905dd5690f14eedc010d315c034947cca9ea4def5572becf)
+![](https://ai-studio-static-online.cdn.bcebos.com/d663f0c13e1d4e2c876dd30975dfa945f5d848c89bce456fb60a9bf7d1ac980d)
 
 ## 1. 快速开始
 
