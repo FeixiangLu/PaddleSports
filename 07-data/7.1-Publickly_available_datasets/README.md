@@ -20,6 +20,11 @@
 |Badminton|羽毛球|2018|目标检测|[https://ieeexplore.ieee.org/document/8354143](https://ieeexplore.ieee.org/document/8354143)|
 |SPIN|乒乓球|2019|分类，目标跟踪|[https://arxiv.org/pdf/1912.06640.pdf](https://arxiv.org/pdf/1912.06640.pdf)|
 |GolfDB|高尔夫球|2019|分类|[https://arxiv.org/pdf/1903.06528.pdf](https://arxiv.org/pdf/1903.06528.pdf)|
+|OpenTTGames|乒乓球|2020|分割，目标检测|[https://arxiv.org/abs/2004.09927](https://arxiv.org/abs/2004.09927)|
+|FineGym|体操|2020|分类，动作定位|[https://openaccess.thecvf.com/content_CVPR_2020/papers/Shao_FineGym_A_Hierarchical_Video_Dataset_for_Fine-Grained_Action_Understanding_CVPR_2020_paper.pdf](https://openaccess.thecvf.com/content_CVPR_2020/papers/Shao_FineGym_A_Hierarchical_Video_Dataset_for_Fine-Grained_Action_Understanding_CVPR_2020_paper.pdf)|
+|SSET|足球|2020|目标跟踪，检测|[https://link.springer.com/article/10.1007/s11042-020-09414-3](https://link.springer.com/article/10.1007/s11042-020-09414-3)|
+|SoccerDB|足球|2020|分类，动作定位|[https://arxiv.org/pdf/1912.04465.pdf](https://arxiv.org/pdf/1912.04465.pdf)|
+
 
 更多数据集和模型介绍请参考
 ```
