@@ -10,8 +10,8 @@
 
 | 模型名称 | 骨干网络 | 测试方式 | 采样帧数 | Top-1% |
 | :------: | :----------: | :----: | :----: | :----: |
-| [BMN](pp-tsm.md) | ResNet50 |  Uniform | 8 | 97.40 |
-| [TCANet++](pp-timesformer.md) | ViT-base |  Uniform | 8 | 98.60 | 
+| [BMN](BMN.md) | ResNet50 |  Uniform | 8 | 97.40 |
+| [TCANet++](TCANet++.md) | ViT-base |  Uniform | 8 | 98.60 | 
 
 ## 3. AI-Studio模型教程
 
