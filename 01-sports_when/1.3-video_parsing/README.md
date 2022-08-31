@@ -39,6 +39,6 @@
 
 ## 3. AI-Studio模型教程
 
-- [《产业级视频技术与应用案例》系列课程](https://aistudio.baidu.com/aistudio/course/introduce/6742)
+- [《产业级视频技术与应用案例》系列课程(包含ASRF、MS-TCN、CFBI算法介绍)](https://aistudio.baidu.com/aistudio/course/introduce/6742)
 
 
