@@ -1,4 +1,4 @@
-# 【PaddleSports】运动员
+# 【PaddleSports】
 
  本目录下 主要功能：
 
