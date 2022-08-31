@@ -13,10 +13,10 @@
 | 模型名称 | 骨干网络 | 测试方式 | 采样帧数 | Top-1% |
 | :------: | :----------: | :----: | :----: | :----: |
 | [PP-TSM](pp-tsm.md) | LCNet_v2 |  Uniform | 8 | 71.81 |
-| PP-TimeSformer | LCNet_v2 |  Uniform | 16 | 73.1 | 
-| SlowFast | MobileNetV2 |  Uniform | 8 | 68.09 | 
-| Attention-LSTM | MobileNetV3 |  Uniform | 8 | 69.84 | 
-| MoViNet | ResNet50 |  Uniform | 8 | 74.54 | 
+| [PP-TimeSformer](pp-timesformer.md) | LCNet_v2 |  Uniform | 16 | 73.1 | 
+| [SlowFast](slowfast.md) | MobileNetV2 |  Uniform | 8 | 68.09 | 
+| [Attention-LSTM](attention_lstm.md) | MobileNetV3 |  Uniform | 8 | 69.84 | 
+| [MoViNet](movinet.md) | ResNet50 |  Uniform | 8 | 74.54 | 
 
 ## 3. AI-Studio模型教程
 
