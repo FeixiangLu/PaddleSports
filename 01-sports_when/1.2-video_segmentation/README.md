@@ -1,5 +1,7 @@
 # 算法与模型
 
+![image](https://raw.githubusercontent.com/FeixiangLu/PaddleSports/main/01-sports_when/1.2-video_segmentation/images/action_example.png)
+
 ## 1. 概要
 
 本模块包含视频理解中主流的动作定位模型[BMN](BMN.md)和冠军模型[TCANet++](TCANet++.md), 详细技术方案见模型文档。
