@@ -1,7 +1,7 @@
 # 算法与模型
 
 <div align="center">
-  <img src="./images/home.gif" width="450px"/><br>
+  <img src="./images/home.gif" width="550px"/><br>
 </div>
 
 ## 1. 概要
