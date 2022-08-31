@@ -1,6 +1,6 @@
 # 算法与模型
 
-![image](https://raw.githubusercontent.com/FeixiangLu/PaddleSports/main/01-sports_when/1.2-video_segmentation/images/action_example.png)
+![image](https://raw.githubusercontent.com/FeixiangLu/PaddleSports/main/01-sports_when/1.3-video_parsing/images/action_example.png)
 
 ## 1. 概要
 
