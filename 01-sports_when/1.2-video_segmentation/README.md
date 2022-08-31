@@ -2,7 +2,7 @@
 
 ## 1. 概要
 
-
+本模块包含视频理解中主流的动作定位模型[BMN](BMN.md)和冠军模型[TCANet++](TCANet++.md), 详细技术方案见模型文档
 
 ## 2. 模型概览
 
@@ -22,3 +22,4 @@
 ## 3. AI-Studio模型教程
 
 - [BMN视频动作定位](https://aistudio.baidu.com/aistudio/projectdetail/2250674)
+- [TCANet++冠军模型](https://aistudio.baidu.com/aistudio/projectdetail/3545680)
