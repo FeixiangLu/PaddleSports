@@ -1,9 +1,7 @@
-简体中文 | [English](README_en.md)
-
 # PP-TinyPose
 
 <div align="center">
-  <img src="../../../docs/images/tinypose_demo.png"/>
+  <img src="https://ai-studio-static-online.cdn.bcebos.com/335743d63cb64f1280866ff920e747c02c13c30326ba4cf49fb48508a6e4a53f"/>
   <center>图片来源：COCO2017开源数据集</center>
 </div>
 
