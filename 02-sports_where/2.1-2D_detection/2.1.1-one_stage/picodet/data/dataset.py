@@ -85,7 +85,6 @@ class DetDataset(Dataset):
         else:
             roidb['curr_iter'] = self._curr_iter
         self._curr_iter += 1
-
         return self.transform(roidb)
 
     def set_kwargs(self, **kwargs):

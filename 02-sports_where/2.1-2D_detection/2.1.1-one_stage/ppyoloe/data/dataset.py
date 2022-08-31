@@ -22,6 +22,7 @@ except Exception:
     from collections import Sequence
 from paddle.io import Dataset
 import copy
+import cv2
 from data.crop_utils.annotation_cropper import AnnoCropper
 from utils.logger import setup_logger
 logger = setup_logger('reader')
@@ -84,7 +85,6 @@ class DetDataset(Dataset):
         else:
             roidb['curr_iter'] = self._curr_iter
         self._curr_iter += 1
-
         return self.transform(roidb)
 
     def set_kwargs(self, **kwargs):
@@ -379,7 +379,6 @@ class SniperCOCODataSet(COCODataSet):
         self.max_per_img = max_per_img
         self.nms_thresh = nms_thresh
 
-
     def parse_dataset(self):
         if not hasattr(self, "roidbs"):
             super(SniperCOCODataSet, self).parse_dataset()
@@ -491,3 +490,7 @@ class SniperCOCODataSet(COCODataSet):
         self._imid2path = {}
         self.image_dir = images
         self.roidbs = self._load_images()
+
+
+def _is_valid_file(f, extensions=('.jpg', '.jpeg', '.png', '.bmp')):
+    return f.lower().endswith(extensions)

@@ -54,7 +54,6 @@ def get_categories(metric_type, anno_file=None, arch=None):
                 from pycocotools.coco import COCO
                 coco = COCO(anno_file)
                 cats = coco.loadCats(coco.getCatIds())
-
                 clsid2catid = {i: cat['id'] for i, cat in enumerate(cats)}
                 catid2name = {cat['id']: cat['name'] for cat in cats}
 

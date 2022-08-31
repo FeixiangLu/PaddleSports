@@ -8,14 +8,16 @@ import time
 import typing
 
 from PIL import ImageFile
-
+from PIL import Image,ImageOps
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 import paddle
+from tqdm import tqdm
 from paddle import amp
 from paddle.static import InputSpec
 from data.dataset import COCODataSet,SniperCOCODataSet
 from data.reader import *
+from data.source.category import get_categories
 from core.optimizer import LearningRate,OptimizerBuilder
 from utils.checkpoint import load_weight, load_pretrain_weight
 from utils import stats as stats
@@ -25,7 +27,7 @@ from metrics import Metric, COCOMetric, VOCMetric, WiderFaceMetric, get_infer_re
 from utils import profiler
 from core.callbacks import Callback, ComposeCallback, LogPrinter, Checkpointer, WiferFaceEval, VisualDLWriter,SniperProposalsGenerator
 from core.export_utils import _dump_infer_config, _prune_input_spec
-
+from utils.visualizer import visualize_results, save_result
 from utils.logger import setup_logger
 
 logger = setup_logger('ppdet.engine')
@@ -386,3 +388,141 @@ class Trainer(object):
         self._reset_metrics()
         with paddle.no_grad():
             self._eval_with_loader(self.loader)
+
+    def predict(self,
+                images,
+                draw_threshold=0.5,
+                output_dir='output',
+                save_results=False):
+        self.dataset = SniperCOCODataSet(
+            dataset_dir=self.cfg['TestDataset']['ImageFolder']['dataset_dir'],
+            anno_path=self.cfg['TestDataset']['ImageFolder']['anno_path'],
+        )
+
+        self.dataset.set_images(images)
+
+        loader_ = TestReader(
+            sample_transforms = self.cfg['TestReader']['sample_transforms'],
+            batch_size = self.cfg['TestReader']['batch_size']
+        )
+        loader = loader_(
+            dataset=self.dataset,
+            worker_num=0,
+            infer=True
+        )
+
+        def setup_metrics_for_loader():
+            # mem
+            metrics = copy.deepcopy(self._metrics)
+            mode = self.mode
+            save_prediction_only = self.cfg[
+                'save_prediction_only'] if 'save_prediction_only' in self.cfg else None
+            output_eval = self.cfg[
+                'output_eval'] if 'output_eval' in self.cfg else None
+
+            # modify
+            self.mode = '_test'
+            self.cfg['save_prediction_only'] = True
+            self.cfg['output_eval'] = output_dir
+            self._init_metrics()
+
+            # restore
+            self.mode = mode
+            self.cfg.pop('save_prediction_only')
+            if save_prediction_only is not None:
+                self.cfg['save_prediction_only'] = save_prediction_only
+
+            self.cfg.pop('output_eval')
+            if output_eval is not None:
+                self.cfg['output_eval'] = output_eval
+
+            _metrics = copy.deepcopy(self._metrics)
+            self._metrics = metrics
+
+            return _metrics
+
+        if save_results:
+            metrics = setup_metrics_for_loader()
+        else:
+            metrics = []
+
+        imid2path = self.dataset.get_imid2path()
+
+        anno_file = self.dataset.get_anno()
+        clsid2catid, catid2name = get_categories(
+            self.cfg['metric'], anno_file=anno_file)
+
+        # Run Infer
+        self.status['mode'] = 'test'
+        self.model.eval()
+        results = []
+        for step_id, data in enumerate(tqdm(loader)):
+            self.status['step_id'] = step_id
+            # forward
+            outs = self.model(data)
+
+            for _m in metrics:
+                _m.update(data, outs)
+
+            for key in ['im_shape', 'scale_factor', 'im_id']:
+                if isinstance(data, typing.Sequence):
+                    outs[key] = data[0][key]
+                else:
+                    outs[key] = data[key]
+            for key, value in outs.items():
+                if hasattr(value, 'numpy'):
+                    outs[key] = value.numpy()
+            results.append(outs)
+
+        # sniper
+        # if type(self.dataset) == SniperCOCODataSet:
+        #     results = self.dataset.anno_cropper.aggregate_chips_detections(
+        #         results)
+
+        for _m in metrics:
+            _m.accumulate()
+            _m.reset()
+
+        for outs in results:
+            batch_res = get_infer_results(outs, clsid2catid)
+            bbox_num = outs['bbox_num']
+
+            start = 0
+            for i, im_id in enumerate(outs['im_id']):
+                image_path = imid2path[int(im_id)]
+                image = Image.open(image_path).convert('RGB')
+                image = ImageOps.exif_transpose(image)
+                self.status['original_image'] = np.array(image.copy())
+
+                end = start + bbox_num[i]
+                bbox_res = batch_res['bbox'][start:end] \
+                        if 'bbox' in batch_res else None
+                mask_res = batch_res['mask'][start:end] \
+                        if 'mask' in batch_res else None
+                segm_res = batch_res['segm'][start:end] \
+                        if 'segm' in batch_res else None
+                keypoint_res = batch_res['keypoint'][start:end] \
+                        if 'keypoint' in batch_res else None
+                image = visualize_results(
+                    image, bbox_res, mask_res, segm_res, keypoint_res,
+                    int(im_id), catid2name, draw_threshold)
+                self.status['result_image'] = np.array(image.copy())
+                if self._compose_callback:
+                    self._compose_callback.on_step_end(self.status)
+                # save image with detection
+                save_name = self._get_save_image_name(output_dir, image_path)
+                logger.info("Detection bbox results save in {}".format(
+                    save_name))
+                image.save(save_name, quality=95)
+
+                start = end
+
+    def _get_save_image_name(self, output_dir, image_path):
+        """
+        Get save image name from source image path.
+        """
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+        image_name = os.path.split(image_path)[-1]
+        name, ext = os.path.splitext(image_name)
+        return os.path.join(output_dir, "{}".format(name)) + ext

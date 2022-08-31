@@ -38,7 +38,7 @@ def parse_args():
         '-c',
         '--config',
         type=str,
-        default="config/picodet_s_320_coco_lcnet.yml",
+        default="config/picodet_m_320_coco_lcnet.yml",
         help='config')
 
     args = parser.parse_args()
