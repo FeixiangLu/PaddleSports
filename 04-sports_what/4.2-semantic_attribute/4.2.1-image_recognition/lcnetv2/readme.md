@@ -53,7 +53,7 @@
 ## 3. 单张图片检验
 
 测试图片
-![](nba2k12117.jpg)
+![](https://ai-studio-static-online.cdn.bcebos.com/04fed3410a4f4d12b3fd7a285ef1b373853c440201434c74aadbcaec17d72ae8)
 
 
 
