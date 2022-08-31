@@ -1,8 +1,10 @@
 # 算法与模型
 
+![image](https://raw.githubusercontent.com/FeixiangLu/PaddleSports/main/01-sports_when/1.2-video_segmentation/images/predict.png)
+
 ## 1. 概要
 
-
+本模块包含视频理解中主流的动作定位模型[BMN](BMN.md)和冠军模型[TCANet++](TCANet++.md), 详细技术方案见模型文档。
 
 ## 2. 模型概览
 
@@ -14,11 +16,12 @@
 
 在乒乓球比赛转播视频数据集上评估精度如下:
 
-| 模型名称 | 骨干网络 | AUC% |
+| 模型名称 | 骨干网络 | AUC |
 | :------: | :----------: | :----: |
-| [BMN](BMN.md) | PP-TSM | 19.30 |
-| [TCANet++](TCANet++.md) | PP-TSM | 48.51 | 
+| [BMN](BMN.md) | PP-TSM | 19.30% |
+| [TCANet++](TCANet++.md) | PP-TSM | 48.51% | 
 
 ## 3. AI-Studio模型教程
 
 - [BMN视频动作定位](https://aistudio.baidu.com/aistudio/projectdetail/2250674)
+- [TCANet++冠军模型](https://aistudio.baidu.com/aistudio/projectdetail/3545680)
