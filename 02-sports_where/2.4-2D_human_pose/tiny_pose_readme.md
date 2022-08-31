@@ -14,7 +14,7 @@ PP-TinyPose是PaddleDetecion针对移动端设备优化的实时关键点检测�
 
 
 <div align="center">
-  <img src="../../../docs/images/tinypose_pipeline.png" width='800'/>
+  <img src="https://ai-studio-static-online.cdn.bcebos.com/484ddbf96f4543cf91a55acd179cb4aea2c0a290641643a69ed2b5146327aea0" width='800'/>
 </div>
 
 ## 部署案例
@@ -22,12 +22,12 @@ PP-TinyPose是PaddleDetecion针对移动端设备优化的实时关键点检测�
 - [Android Fitness Demo](https://github.com/zhiboniu/pose_demo_android)  基于PP-TinyPose, 高效实现健身校准与计数功能。
 
 <div align="center">
-  <img src="../../../docs/images/fitness_demo.gif" width='636'/>
+  <img src="https://ai-studio-static-online.cdn.bcebos.com/8b60258001c642fd8405466354e5722f933f12c118534b869d38597341c782f2" width='636'/>
 </div>
 
 - 欢迎扫码快速体验
 <div align="center">
-  <img src="../../../docs/images/tinypose_app.png" width='220'/>
+  <img src="https://ai-studio-static-online.cdn.bcebos.com/26065e766d9c4e48a4cd81d52edecc4b798175124f2d44119ea3afdfddbd4624" width='220'/>
 </div>
 
 
@@ -72,7 +72,6 @@ PP-TinyPose是PaddleDetecion针对移动端设备优化的实时关键点检测�
 - 速度测试环境为qualcomm snapdragon 865，采用arm8下4线程、FP32推理得到。
 - Pipeline速度包含模型的预处理、推理及后处理部分。
 - 其他优秀开源模型的测试及部署方案，请参考[这里](https://github.com/zhiboniu/MoveNet-PaddleLite)。
-- 更多环境下的性能测试结果，请参考[Keypoint Inference Benchmark](../KeypointBenchmark.md)。
 
 ## 模型训练
 关键点检测模型与行人检测模型的训练集在`COCO`以外还扩充了[AI Challenger](https://arxiv.org/abs/1711.06475)数据集，各数据集关键点定义如下：
@@ -175,7 +174,7 @@ python3 deploy/python/det_keypoint_unite_infer.py --det_model_dir=output_inferen
 #### 直接使用我们提供的模型进行部署
 1. 下载模型库中提供的`Paddle-Lite部署模型`，分别获取得到行人检测模型和关键点检测模型的`.nb`格式文件。
 2. 准备Paddle-Lite运行环境, 可直接通过[PaddleLite预编译库下载](https://paddle-lite.readthedocs.io/zh/latest/quick_start/release_lib.html)获取预编译库，无需自行编译。如需要采用FP16推理，则需要下载[FP16的预编译库](https://github.com/PaddlePaddle/Paddle-Lite/releases/download/v2.10-rc/inference_lite_lib.android.armv8_clang_c++_static_with_extra_with_cv_with_fp16.tiny_publish_427e46.zip)
-3. 编译模型运行代码，详细步骤见[Paddle-Lite端侧部署](../../../deploy/lite/README.md)。
+3. 编译模型运行代码。
 
 #### 将训练的模型实现端侧部署
 如果您希望将自己训练的模型应用于部署，可以参考以下步骤：
@@ -206,9 +205,9 @@ paddle_lite_opt --model_dir=inference_model/tinypose_128x96 --valid_targets=arm 
 paddle_lite_opt --model_dir=inference_model/tinypose_128x96 --valid_targets=arm --optimize_out=tinypose_128x96_fp16 --enable_fp16=true
 ```
 
-3. 编译模型运行代码，详细步骤见[Paddle-Lite端侧部署](../../../deploy/lite/README.md)。
+3. 编译模型运行代码。
 
-我们已提供包含数据预处理、模型推理及模型后处理的[全流程示例代码](../../../deploy/lite/)，可根据实际需求进行修改。
+我们已提供包含数据预处理、模型推理及模型后处理的全流程示例代码，可根据实际需求进行修改。
 
 **注意**
 - 在导出模型时增加`TestReader.fuse_normalize=true`参数，可以将对图像的Normalize操作合并在模型中执行，从而实现加速。
