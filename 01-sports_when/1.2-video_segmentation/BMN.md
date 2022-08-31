@@ -19,7 +19,7 @@ BMN模型是百度自研，2019年ActivityNet夺冠方案，为视频动作定�
 AI Studio项目使用链接：[ActivityNet Challenge 2019 冠军模型：BMN](https://aistudio.baidu.com/aistudio/projectdetail/2250674?contributionType=1)
 
 <p align="center">
-<img src="./images/BMN.png" height=300 width=400 hspace='10'/> <br />
+<img src="https://raw.githubusercontent.com/FeixiangLu/PaddleSports/main/01-sports_when/1.2-video_segmentation/images/BMN.png" height=300 width=400 hspace='10'/> <br />
 BMN Overview
 </p>
 
