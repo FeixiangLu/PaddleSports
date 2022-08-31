@@ -16,6 +16,10 @@
 |SPIROUDOME|篮球|2017|目标检测|[https://www.sciencedirect.com/science/article/abs/pii/S1077314217300036](https://www.sciencedirect.com/science/article/abs/pii/S1077314217300036)|
 |Diving48|跳水|2018|分类|[https://www.ecva.net/papers/eccv_2018/papers_ECCV/papers/Yingwei_Li_RESOUND_Towards_Action_ECCV_2018_paper.pdf](https://www.ecva.net/papers/eccv_2018/papers_ECCV/papers/Yingwei_Li_RESOUND_Towards_Action_ECCV_2018_paper.pdf)|
 |TTStroke-21|乒乓球|2018|分类|[https://ieeexplore.ieee.org/document/8516488](https://ieeexplore.ieee.org/document/8516488)|
+|SoccerNet|足球|2018|目标检测|[https://arxiv.org/pdf/1804.04527.pdf](https://arxiv.org/pdf/1804.04527.pdf)|
+|Badminton|羽毛球|2018|目标检测|[https://ieeexplore.ieee.org/document/8354143](https://ieeexplore.ieee.org/document/8354143)|
+|SPIN|乒乓球|2019|分类，目标跟踪|[https://arxiv.org/pdf/1912.06640.pdf](https://arxiv.org/pdf/1912.06640.pdf)|
+|GolfDB|高尔夫球|2019|分类|[https://arxiv.org/pdf/1903.06528.pdf](https://arxiv.org/pdf/1903.06528.pdf)|
 
 更多数据集和模型介绍请参考
 ```
