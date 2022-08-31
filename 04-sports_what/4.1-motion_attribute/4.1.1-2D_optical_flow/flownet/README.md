@@ -37,7 +37,7 @@ python train.py
 
 ```
 # 贡献者
-COOLGUY [AiStudio主页](https://aistudio.baidu.com/aistudio/usercenter)
+COOLGUY [AiStudio主页](https://aistudio.baidu.com/aistudio/personalcenter/thirdview/54915)
 
 
 
