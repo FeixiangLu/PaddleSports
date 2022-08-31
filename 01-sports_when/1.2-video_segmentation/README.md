@@ -14,10 +14,10 @@
 
 在乒乓球比赛转播视频数据集上评估精度如下:
 
-| 模型名称 | 骨干网络 | AUC% |
+| 模型名称 | 骨干网络 | AUC |
 | :------: | :----------: | :----: |
-| [BMN](BMN.md) | PP-TSM | 19.30 |
-| [TCANet++](TCANet++.md) | PP-TSM | 48.51 | 
+| [BMN](BMN.md) | PP-TSM | 19.30% |
+| [TCANet++](TCANet++.md) | PP-TSM | 48.51% | 
 
 ## 3. AI-Studio模型教程
 
