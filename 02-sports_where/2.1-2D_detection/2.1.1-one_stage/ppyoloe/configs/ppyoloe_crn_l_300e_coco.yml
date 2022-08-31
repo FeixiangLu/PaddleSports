@@ -80,7 +80,7 @@ TestReader:
 use_gpu: true
 use_xpu: false
 save_dir: output
-filename: Picodet
+filename: PPyoloe
 print_flops: false
 
 # optimizer

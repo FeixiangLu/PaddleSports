@@ -13,3 +13,5 @@
 
 近几年出现了基于深度学习的光流估计算法，开山之作是FlowNet，于2015年首先使用CNN解决光流估计问题，取得了较好的结果，并且在CVPR2017上发表改进版本FlowNet2.0,成为当时State-of-the-art的方法。截止到现在，FlowNet和FlowNet2.0依然和深度学习光流估计算法中引用率最高的论文，分别引用790次和552次。随后出现了PWC、RAFT等一系列深度学习模型，并不断刷新EPE
 
+# 贡献者
+COOLGUY [AiStudio主页](https://aistudio.baidu.com/aistudio/usercenter)
