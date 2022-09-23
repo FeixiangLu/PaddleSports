@@ -8,6 +8,10 @@ This [repo](https://github.com/baidu-research/vidpress-sports) contains the pret
 
 A better model than the Pretrained Soccernet Features has yet to be trained on Soccernet data and the repo will be updated once such models are available. The code provided here is to help you train your own model to do inference on other data or research. The training setup assumes a [Kinetics](https://www.deepmind.com/open-source/kinetics) style training (not considering class imbalances, more complicated sampling as originally done) so that it is most forward compatible with new models.
 
+## Prepare source code
+
+Clone this repo [PaddleVideo](https://github.com/PaddlePaddle/PaddleVideo). Move the source code in the Training folder into data/soccernet/ in the PaddleVideo folder, call it $PADDLEVIDEO_SOURCE_FOLDER.
+
 ## Generate low resolution clips
 
 In this section, we will be extracting short 10 seconds clips from the Soccernet videos and the clips will have a lower resolution for training.
@@ -93,9 +97,39 @@ Train with
 
 Or put the command in a bash file and use slurm.
 
-Note
+Notes
 1. Compared to Kinetics training, we set equal sampling from the clips in the config since we need to cover the actual event in the short clip.
+
+# Features inference
+
+Go into the inference source folder 10-applications/01-football/07-soccernet_features/Inference.
+
+Make a subfolder for the inference files in the PaddleVideo source folder
+
+    mkdir $PADDLEVIDEO_SOURCE_FOLDER/data/soccernet_inference/
+
+Copy the config file and script into the inference folder
+
+    cp run.sh $PADDLEVIDEO_SOURCE_FOLDER/data/soccernet_inference/
+    cp soccernet_videoswin_k400_extract_features.yaml $PADDLEVIDEO_SOURCE_FOLDER/data/soccernet_inference/
+
+Update some source files for PaddleVideo. 
+
+    cp recognizer_transformer_features_inference.py $PADDLEVIDEO_SOURCE_FOLDER/paddlevideo/modeling/framework/recognizers/
+    cp __init__.py $PADDLEVIDEO_SOURCE_FOLDER/paddlevideo/modeling/framework/recognizers/
+    cp test.py $PADDLEVIDEO_SOURCE_FOLDER/paddlevideo/tasks/test.py
+    cp sample.py $PADDLEVIDEO_SOURCE_FOLDER/paddlevideo/loader/pipelines/sample.py
+
+Notes:
+1. sample.py changes are in the logic branch l108.
+
+Inference steps:
+1. Modify the -w parameter in run.sh to a pretrained weight.
+2. Modify the parameter features_dir in the yaml config to your own location.
+3. Modify DATASET.test.file_path in the yaml config to your list of files.
+4. Features will be saved to the features_dir folder in the same order inference video files are listed.
+5. Run run.sh
 
 # Coming soon
 
-1. Event detection with trained features. 
+1. Event detection with dense anchors.
