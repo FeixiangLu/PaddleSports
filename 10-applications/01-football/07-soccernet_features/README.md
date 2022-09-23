@@ -120,15 +120,18 @@ Update some source files for PaddleVideo.
     cp test.py $PADDLEVIDEO_SOURCE_FOLDER/paddlevideo/tasks/test.py
     cp sample.py $PADDLEVIDEO_SOURCE_FOLDER/paddlevideo/loader/pipelines/sample.py
 
-Notes:
-1. sample.py changes are in the logic branch l108.
-
 Inference steps:
 1. Modify the -w parameter in run.sh to a pretrained weight.
 2. Modify the parameter features_dir in the yaml config to your own location.
 3. Modify DATASET.test.file_path in the yaml config to your list of files.
 4. Features will be saved to the features_dir folder in the same order inference video files are listed.
 5. Run run.sh
+
+Notes:
+1. sample.py changes are in the logic branch l108.
+2. Parameters can also be overwritten with the -o parameter instead of modifying the yaml file
+
+    python3.7 -B -m paddle.distributed.launch --gpus="0" --log_dir=log_soccernet_feature_test  main.py --test -c data/soccernet_inference/soccernet_videoswin_k400_extract_features.yaml -w pretrained_weights/swin_base_patch4_window7_224.pdparams -o features_dir=/mnt/storage/gait-0/xin/dev/PaddleVideo/temp2 -o DATASET.test.file_path=inference2.list
 
 # Coming soon
 
