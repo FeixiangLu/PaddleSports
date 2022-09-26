@@ -1,32 +1,32 @@
-batch_size: 6  # total: 4*6
-iters: 10000
+batch_size: 8
+iters: 20000
 
 train_dataset:
   type: Dataset
-  dataset_root: data/camvid
-  num_classes: 11
+  dataset_root: data/coco2017/
+  num_classes: 2
   mode: train
-  train_path: data/camvid/train.txt
+  train_path: data/coco2017/train2017.txt
   transforms:
     - type: ResizeStepScaling
       min_scale_factor: 0.5
-      max_scale_factor: 2.5
+      max_scale_factor: 2.0
       scale_step_size: 0.25
     - type: RandomPaddingCrop
-      crop_size: [960, 720]
+      crop_size: [520, 520]
     - type: RandomHorizontalFlip
     - type: RandomDistort
-      brightness_range: 0.5
-      contrast_range: 0.5
-      saturation_range: 0.5
+      brightness_range: 0.4
+      contrast_range: 0.4
+      saturation_range: 0.4
     - type: Normalize
 
 val_dataset:
   type: Dataset
-  dataset_root: data/camvid
-  num_classes: 11
+  dataset_root: data/coco2017/
+  num_classes: 2
   mode: val
-  val_path: data/camvid/val.txt
+  val_path: data/coco2017/val2017.txt
   transforms:
     - type: Normalize
 
