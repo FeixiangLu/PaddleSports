@@ -1,7 +1,7 @@
-_base_: '../_base_/cityscapes_769x769.yml'
+_base_: '../_base_/coco.yml'
 
 batch_size: 2
-iters: 80000
+iters: 40000
 
 model:
   type: DeepLabV3P
@@ -10,9 +10,9 @@ model:
     output_stride: 8
     multi_grid: [1, 2, 4]
     pretrained:  https://bj.bcebos.com/paddleseg/dygraph/resnet101_vd_ssld.tar.gz
-  num_classes: 19
+  num_classes: 2
   backbone_indices: [0, 3]
   aspp_ratios: [1, 12, 24, 36]
   aspp_out_channels: 256
-  align_corners: True
+  align_corners: False
   pretrained: null

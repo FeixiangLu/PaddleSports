@@ -1,4 +1,7 @@
-_base_: '../_base_/pascal_voc12aug.yml'
+_base_: '../_base_/coco.yml'
+
+batch_size: 2
+iters: 40000
 
 model:
   type: DeepLabV3P
@@ -7,6 +10,7 @@ model:
     output_stride: 8
     multi_grid: [1, 2, 4]
     pretrained: https://bj.bcebos.com/paddleseg/dygraph/resnet50_vd_ssld_v2.tar.gz
+  num_classes: 2
   backbone_indices: [0, 3]
   aspp_ratios: [1, 12, 24, 36]
   aspp_out_channels: 256

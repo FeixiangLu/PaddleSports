@@ -13,16 +13,16 @@ PP-LiteSeg，一种用于实时语义分割任务的新型轻量级模型。具�
 COCO数据集
 |模型|骨干|输入尺寸|mIoU(Val)|模型下载|配置文件|
 |-|-|-|-|-|-|
-PP-LiteSeg | STDC1      |  520x520  | 0.8609 |  |  |
-PP-LiteSeg | STDC2      |  520x520  | 0.8628 |  |  |
+PP-LiteSeg | STDC1 |  520x520  | 0.8609 |  |  |
+PP-LiteSeg | STDC2 |  520x520  | 0.8628 |  |  |
 
 
 ## 快速开始
 
 ### 数据集准备
-* 下载数据集并且移动至`PaddleSeg/data`
+* 下载数据集并且移动至`./data`
     ```
-    PaddleSeg/data
+    data
     ├── coco2017
     │   ├── train2017
     │   ├── val2017
@@ -33,7 +33,7 @@ PP-LiteSeg | STDC2      |  520x520  | 0.8628 |  |  |
 
 ### 模型训练
 
-PP-LiteSeg配置文件可见`PaddleSeg/configs/pp_liteseg/`.
+PP-LiteSeg配置文件可见`configs/pp_liteseg/`.
 
 ```Shell
 python train.py \

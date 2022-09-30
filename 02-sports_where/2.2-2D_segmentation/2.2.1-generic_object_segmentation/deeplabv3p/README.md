@@ -1,25 +1,67 @@
-# Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation
+﻿# Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation
 
-## Reference
+## 简介
 
-> Chen, Liang-Chieh, Yukun Zhu, George Papandreou, Florian Schroff, and Hartwig Adam. "Encoder-decoder with atrous separable convolution for semantic image segmentation." In Proceedings of the European conference on computer vision (ECCV), pp. 801-818. 2018.
+DeepLabv3p，在DeepLabv3基础上进行了拓展。具体来说，通过添加一个简单但有效的解码器模块来细化分割结果，特别是沿着目标边界。DeepLabv3p进一步探索了Xception模型，并将深度可分离卷积应用于Atrous空间金字塔池和解码器模块，从而获得更快、更强的编码器-解码器网络。
 
-## Performance
+## 模型库
 
-### Cityscapes
+COCO数据集
+|模型|骨干|输入尺寸|mIoU(Val)|Training Iters|模型下载|配置文件|
+|-|-|-|-|-|-|-|
+DeepLabv3p | ResNet50_OS8   |  520x520  | 0.8686 | 40000 |  |  |
+DeepLabv3p | ResNet101_OS8  |  520x520  | 0.7191 | 40000 |  |  |
 
-| Model | Backbone | Resolution | Training Iters | mIoU | mIoU (flip) | mIoU (ms+flip) | Links |
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-|DeepLabV3P|ResNet50_OS8|1024x512|80000|80.36%|80.57%|80.81%|[model](https://bj.bcebos.com/paddleseg/dygraph/cityscapes/deeplabv3p_resnet50_os8_cityscapes_1024x512_80k/model.pdparams) \| [log](https://bj.bcebos.com/paddleseg/dygraph/cityscapes/deeplabv3p_resnet50_os8_cityscapes_1024x512_80k/train.log) \| [vdl](https://paddlepaddle.org.cn/paddle/visualdl/service/app?id=860bd0049ba5495d629a96d5aaf1bf75)|
-|DeepLabV3P*|ResNet50_OS8|1024x512|80000|81.18%| 81.42% | 81.48% |[model](https://bj.bcebos.com/paddleseg/dygraph/cityscapes/deeplabv3p_resnet50_os8_cityscapes_1024x512_80k_rmiloss/model.pdparams) \| [log](https://bj.bcebos.com/paddleseg/dygraph/cityscapes/deeplabv3p_resnet50_os8_cityscapes_1024x512_80k_rmiloss/train.log) \| [vdl](https://www.paddlepaddle.org.cn/paddle/visualdl/service/app/scalar?id=ce094fb8a42c056b6edb92f975cfa0e3)|
-|DeepLabV3P|ResNet101_OS8|1024x512|80000|81.10%|81.38%|81.24%|[model](https://bj.bcebos.com/paddleseg/dygraph/cityscapes/deeplabv3p_resnet101_os8_cityscapes_1024x512_80k/model.pdparams) \| [log](https://bj.bcebos.com/paddleseg/dygraph/cityscapes/deeplabv3p_resnet101_os8_cityscapes_1024x512_80k/train.log) \| [vdl](https://paddlepaddle.org.cn/paddle/visualdl/service/app?id=8b11e75b8977a0fd74180145350c27de)|
-|DeepLabV3P|ResNet101_OS8|769x769|80000|81.53%|81.88%|82.12%|[model](https://bj.bcebos.com/paddleseg/dygraph/cityscapes/deeplabv3p_resnet101_os8_cityscapes_769x769_80k/model.pdparams) \| [log](https://bj.bcebos.com/paddleseg/dygraph/cityscapes/deeplabv3p_resnet101_os8_cityscapes_769x769_80k/train.log) \| [vdl](https://paddlepaddle.org.cn/paddle/visualdl/service/app?id=420039406361cbc3cf7ec14c1084d886)|
 
-DeepLabV3P* is DeepLabV3P with [RMI Loss](https://arxiv.org/abs/1910.12037), which requires paddlepaddle=2.2.
+## 快速开始
 
-### Pascal VOC 2012 + Aug
+### 数据集准备
+* 下载数据集并且移动至`./data`
+    ```
+    data
+    ├── coco2017
+    │   ├── train2017
+    │   ├── val2017
+    │   ├── annotations
+    │   ├── train.txt
+    │   └── val.txt
+    ```
 
-| Model | Backbone | Resolution | Training Iters | mIoU | mIoU (flip) | mIoU (ms+flip) | Links |
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-|DeepLabV3P|ResNet50_OS8|512x512|40000|80.66%|81.33%|81.49%|[model](https://bj.bcebos.com/paddleseg/dygraph/pascal_voc12/deeplabv3p_resnet50_os8_voc12aug_512x512_40k/model.pdparams) \| [log](https://bj.bcebos.com/paddleseg/dygraph/pascal_voc12/deeplabv3p_resnet50_os8_voc12aug_512x512_40k/train.log) \| [vdl](https://paddlepaddle.org.cn/paddle/visualdl/service/app?id=a2891ac5fb866b3ea8c38289e5b1d686)|
-|DeepLabV3P|ResNet101_OS8|512x512|40000|80.60%|80.77%|80.75%|[model](https://bj.bcebos.com/paddleseg/dygraph/pascal_voc12/deeplabv3p_resnet101_os8_voc12aug_512x512_40k/model.pdparams) \| [log](https://bj.bcebos.com/paddleseg/dygraph/pascal_voc12/deeplabv3p_resnet101_os8_voc12aug_512x512_40k/train.log) \| [vdl](https://paddlepaddle.org.cn/paddle/visualdl/service/app?id=304048e5c2b57949f56b75b88ccb5645)|
+### 模型训练
+
+DeepLabv3p配置文件可见`configs/deeplabv3p/`.
+
+```Shell
+python train.py \
+    --config configs/deeplabv3p/${model}.yml \
+    --save_dir output/${model} \
+    --do_eval \
+    --use_vdl
+```
+
+## 模型评估
+
+```shell
+python val.py \
+    --config configs/deeplabv3p/${model}.yml \
+    --model_path output/${model}/best_model/model.pdparams
+```
+
+## 模型预测
+```shell
+python predict.py \
+    --config configs/deeplabv3p/${model}.yml \
+    --model_path output/${model}/best_model/model.pdparams \
+    --image_path ${imagepath} or ${imagedir} \
+    --save_dir output/result
+```
+
+## 引用
+```
+@article{2018Encoder,
+  title={Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation},
+  author={ Chen, L. C.  and  Zhu, Y.  and  Papandreou, G.  and  Schroff, F.  and  Adam, H. },
+  journal={Springer, Cham},
+  year={2018},
+}
+```
