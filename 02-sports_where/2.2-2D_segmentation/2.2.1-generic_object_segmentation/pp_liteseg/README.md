@@ -20,15 +20,22 @@ PP-LiteSeg | STDC2 |  520x520  | 0.8628 | 20000 |  |  |
 ## 快速开始
 
 ### 数据集准备
-* 下载数据集并且移动至`./data`
+* 下载数据集并且移动至`./dataset`
     ```
-    data
-    ├── coco2017
+    dataset
+    ├── train2017
+    ├── val2017
+    ├── test2017
+    ├── annotations
+    ├── COCO_person
     │   ├── train2017
     │   ├── val2017
     │   ├── annotations
-    │   ├── train.txt
-    │   └── val.txt
+    │   ├── label
+    │   │   ├── train2017
+    │   │   ├── val2017
+    │   │   ├── train2017.txt
+    │   │   └── val2017.txt
     ```
 
 ### 模型训练
@@ -68,3 +75,7 @@ python predict.py \
   year={2022},
 }
 ```
+
+## AI Studio项目传送门
+
+https://aistudio.baidu.com/aistudio/projectdetail/4644822
