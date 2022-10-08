@@ -3,10 +3,10 @@ iters: 20000
 
 train_dataset:
   type: Dataset
-  dataset_root: data/coco2017/
+  dataset_root: /home/aistudio/dataset/COCO_person/
   num_classes: 2
   mode: train
-  train_path: data/coco2017/train2017.txt
+  train_path: /home/aistudio/dataset/COCO_person/label/train2017.txt
   transforms:
     - type: ResizeStepScaling
       min_scale_factor: 0.5
@@ -23,10 +23,10 @@ train_dataset:
 
 val_dataset:
   type: Dataset
-  dataset_root: data/coco2017/
+  dataset_root: /home/aistudio/dataset/COCO_person/
   num_classes: 2
   mode: val
-  val_path: data/coco2017/val2017.txt
+  val_path: /home/aistudio/dataset/COCO_person/label/val2017.txt
   transforms:
     - type: Normalize
 
