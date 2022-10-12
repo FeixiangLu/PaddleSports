@@ -1,0 +1,62 @@
+batch_size: 8
+iters: 20000
+
+train_dataset:
+  type: Dataset
+  dataset_root: /home/aistudio/dataset/COCO_person/
+  num_classes: 2
+  mode: train
+  train_path: /home/aistudio/dataset/COCO_person/label/train2017.txt
+  transforms:
+    - type: ResizeStepScaling
+      min_scale_factor: 0.5
+      max_scale_factor: 2.0
+      scale_step_size: 0.25
+    - type: RandomPaddingCrop
+      crop_size: [520, 520]
+    - type: RandomHorizontalFlip
+    - type: RandomDistort
+      brightness_range: 0.4
+      contrast_range: 0.4
+      saturation_range: 0.4
+    - type: Normalize
+
+val_dataset:
+  type: Dataset
+  dataset_root: /home/aistudio/dataset/COCO_person/
+  num_classes: 2
+  mode: val
+  val_path: /home/aistudio/dataset/COCO_person/label/val2017.txt
+  transforms:
+    - type: Normalize
+
+optimizer:
+  type: sgd
+  momentum: 0.9
+  weight_decay: 5.0e-4
+
+lr_scheduler:
+  type: PolynomialDecay
+  learning_rate: 0.01
+  end_lr: 0
+  power: 0.9
+  warmup_iters: 200
+  warmup_start_lr: 1.0e-5
+
+loss:
+  types:
+    - type: OhemCrossEntropyLoss
+      min_kept: 250000   # batch_size * 960 * 720 // 16
+    - type: OhemCrossEntropyLoss
+      min_kept: 250000
+    - type: OhemCrossEntropyLoss
+      min_kept: 250000
+  coef: [1, 1, 1]
+
+model:
+  type: PPLiteSeg
+  backbone:
+    type: STDC1
+    pretrained: https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+  arm_out_chs: [32, 64, 128]
+  seg_head_inter_chs: [32, 64, 64]

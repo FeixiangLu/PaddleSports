@@ -1,0 +1,48 @@
+batch_size: 8
+iters: 10000
+
+train_dataset:
+  type: Dataset
+  dataset_root: /home/aistudio/dataset/COCO_person/
+  num_classes: 2
+  mode: train
+  train_path: /home/aistudio/dataset/COCO_person/label/train2017.txt
+  transforms:
+    - type: ResizeStepScaling
+      min_scale_factor: 0.5
+      max_scale_factor: 2.0
+      scale_step_size: 0.25
+    - type: RandomPaddingCrop
+      crop_size: [520, 520]
+    - type: RandomHorizontalFlip
+    - type: RandomDistort
+      brightness_range: 0.4
+      contrast_range: 0.4
+      saturation_range: 0.4
+    - type: Normalize
+
+val_dataset:
+  type: Dataset
+  dataset_root: /home/aistudio/dataset/COCO_person/
+  num_classes: 2
+  mode: val
+  val_path: /home/aistudio/dataset/COCO_person/label/val2017.txt
+  transforms:
+    - type: Normalize
+
+
+optimizer:
+  type: sgd
+  momentum: 0.9
+  weight_decay: 4.0e-5
+
+lr_scheduler:
+  type: PolynomialDecay
+  learning_rate: 0.01
+  end_lr: 0
+  power: 0.9
+
+loss:
+  types:
+    - type: CrossEntropyLoss
+  coef: [1]
