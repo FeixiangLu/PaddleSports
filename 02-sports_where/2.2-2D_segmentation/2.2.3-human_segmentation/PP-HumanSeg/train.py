@@ -1,4 +1,4 @@
-# Copyright (c) 2021 PaddlePaddle Authors. All Rights Reserved.
+# Copyright (c) 2020 PaddlePaddle Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,13 +13,14 @@
 # limitations under the License.
 
 import argparse
+import random
 
 import paddle
-from paddleseg.cvlibs import manager, Config
-from paddleseg.utils import get_sys_env, logger, config_check
+import numpy as np
 
-from datasets.humanseg import HumanSeg
-from scripts.train import train
+from python.cvlibs import manager, Config
+from python.utils import get_sys_env, logger, config_check
+from python.core import train
 
 
 def parse_args():
@@ -91,19 +92,73 @@ def parse_args():
         dest='use_vdl',
         help='Whether to record the data to VisualDL during training',
         action='store_true')
+    parser.add_argument(
+        '--seed',
+        dest='seed',
+        help='Set the random seed during training.',
+        default=None,
+        type=int)
+    parser.add_argument(
+        "--precision",
+        default="fp32",
+        type=str,
+        choices=["fp32", "fp16"],
+        help="Use AMP (Auto mixed precision) if precision='fp16'. If precision='fp32', the training is normal."
+    )
+    parser.add_argument(
+        "--amp_level",
+        default="O1",
+        type=str,
+        choices=["O1", "O2"],
+        help="Auto mixed precision level. Accepted values are “O1” and “O2”: O1 represent mixed precision, the input \
+                data type of each operator will be casted by white_list and black_list; O2 represent Pure fp16, all operators \
+                parameters and input data will be casted to fp16, except operators in black_list, don’t support fp16 kernel \
+                and batchnorm. Default is O1(amp)")
+    parser.add_argument(
+        '--data_format',
+        dest='data_format',
+        help='Data format that specifies the layout of input. It can be "NCHW" or "NHWC". Default: "NCHW".',
+        type=str,
+        default='NCHW')
+    parser.add_argument(
+        '--profiler_options',
+        type=str,
+        default=None,
+        help='The option of train profiler. If profiler_options is not None, the train ' \
+            'profiler is enabled. Refer to the paddleseg/utils/train_profiler.py for details.'
+    )
+    parser.add_argument(
+        '--device',
+        dest='device',
+        help='Device place to be set, which can be GPU, XPU, NPU, CPU',
+        default='gpu',
+        type=str)
 
     return parser.parse_args()
 
 
 def main(args):
+
+    if args.seed is not None:
+        paddle.seed(args.seed)
+        np.random.seed(args.seed)
+        random.seed(args.seed)
+
     env_info = get_sys_env()
     info = ['{}: {}'.format(k, v) for k, v in env_info.items()]
     info = '\n'.join(['', format('Environment Information', '-^48s')] + info +
                      ['-' * 48])
     logger.info(info)
 
-    place = 'gpu' if env_info['Paddle compiled with cuda'] and env_info[
-        'GPUs used'] else 'cpu'
+    if args.device == 'gpu' and env_info[
+            'Paddle compiled with cuda'] and env_info['GPUs used']:
+        place = 'gpu'
+    elif args.device == 'xpu' and paddle.is_compiled_with_xpu():
+        place = 'xpu'
+    elif args.device == 'npu' and paddle.is_compiled_with_npu():
+        place = 'npu'
+    else:
+        place = 'cpu'
 
     paddle.set_device(place)
     if not args.cfg:
@@ -114,6 +169,17 @@ def main(args):
         learning_rate=args.learning_rate,
         iters=args.iters,
         batch_size=args.batch_size)
+
+    # Only support for the DeepLabv3+ model
+    if args.data_format == 'NHWC':
+        if cfg.dic['model']['type'] != 'DeepLabV3P':
+            raise ValueError(
+                'The "NHWC" data format only support the DeepLabV3P model!')
+        cfg.dic['model']['data_format'] = args.data_format
+        cfg.dic['model']['backbone']['data_format'] = args.data_format
+        loss_len = len(cfg.dic['loss']['types'])
+        for i in range(loss_len):
+            cfg.dic['loss']['types'][i]['data_format'] = args.data_format
 
     train_dataset = cfg.train_dataset
     if train_dataset is None:
@@ -133,6 +199,10 @@ def main(args):
 
     config_check(cfg, train_dataset=train_dataset, val_dataset=val_dataset)
 
+    if place == 'gpu' and paddle.distributed.ParallelEnv().nranks > 1:
+        # convert bn to sync_bn
+        cfg._model = paddle.nn.SyncBatchNorm.convert_sync_batchnorm(cfg.model)
+
     train(
         cfg.model,
         train_dataset,
@@ -147,7 +217,12 @@ def main(args):
         num_workers=args.num_workers,
         use_vdl=args.use_vdl,
         losses=losses,
-        keep_checkpoint_max=args.keep_checkpoint_max)
+        keep_checkpoint_max=args.keep_checkpoint_max,
+        test_config=cfg.test_config,
+        precision=args.precision,
+        amp_level=args.amp_level,
+        profiler_options=args.profiler_options,
+        to_static_training=cfg.to_static_training)
 
 
 if __name__ == '__main__':
