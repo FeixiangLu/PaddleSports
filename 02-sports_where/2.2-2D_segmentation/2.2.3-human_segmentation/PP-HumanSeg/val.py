@@ -1,4 +1,4 @@
-# Copyright (c) 2021 PaddlePaddle Authors. All Rights Reserved.
+# Copyright (c) 2020 PaddlePaddle Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,11 +17,26 @@ import os
 
 import paddle
 
-from paddleseg.cvlibs import manager, Config
-from paddleseg.core import evaluate
-from paddleseg.utils import get_sys_env, logger, config_check, utils
+from python.cvlibs import manager, Config
+from python.core import evaluate
+from python.utils import get_sys_env, logger, config_check, utils
 
-from datasets.humanseg import HumanSeg
+
+def get_test_config(cfg, args):
+
+    test_config = cfg.test_config
+    if args.aug_eval:
+        test_config['aug_eval'] = args.aug_eval
+        test_config['scales'] = args.scales
+        test_config['flip_horizontal'] = args.flip_horizontal
+        test_config['flip_vertical'] = args.flip_vertical
+
+    if args.is_slide:
+        test_config['is_slide'] = args.is_slide
+        test_config['crop_size'] = args.crop_size
+        test_config['stride'] = args.stride
+
+    return test_config
 
 
 def parse_args():
@@ -88,19 +103,59 @@ def parse_args():
         type=int,
         default=None)
 
+    parser.add_argument(
+        '--data_format',
+        dest='data_format',
+        help='Data format that specifies the layout of input. It can be "NCHW" or "NHWC". Default: "NCHW".',
+        type=str,
+        default='NCHW')
+
+    parser.add_argument(
+        '--auc_roc',
+        dest='add auc_roc metric',
+        help='Whether to use auc_roc metric',
+        type=bool,
+        default=False)
+
+    parser.add_argument(
+        '--device',
+        dest='device',
+        help='Device place to be set, which can be GPU, XPU, NPU, CPU',
+        default='gpu',
+        type=str)
+
     return parser.parse_args()
 
 
 def main(args):
     env_info = get_sys_env()
-    place = 'gpu' if env_info['Paddle compiled with cuda'] and env_info[
-        'GPUs used'] else 'cpu'
+
+    if args.device == 'gpu' and env_info[
+            'Paddle compiled with cuda'] and env_info['GPUs used']:
+        place = 'gpu'
+    elif args.device == 'xpu' and paddle.is_compiled_with_xpu():
+        place = 'xpu'
+    elif args.device == 'npu' and paddle.is_compiled_with_npu():
+        place = 'npu'
+    else:
+        place = 'cpu'
 
     paddle.set_device(place)
     if not args.cfg:
         raise RuntimeError('No configuration file specified.')
 
     cfg = Config(args.cfg)
+    # Only support for the DeepLabv3+ model
+    if args.data_format == 'NHWC':
+        if cfg.dic['model']['type'] != 'DeepLabV3P':
+            raise ValueError(
+                'The "NHWC" data format only support the DeepLabV3P model!')
+        cfg.dic['model']['data_format'] = args.data_format
+        cfg.dic['model']['backbone']['data_format'] = args.data_format
+        loss_len = len(cfg.dic['loss']['types'])
+        for i in range(loss_len):
+            cfg.dic['loss']['types'][i]['data_format'] = args.data_format
+
     val_dataset = cfg.val_dataset
     if val_dataset is None:
         raise RuntimeError(
@@ -121,19 +176,10 @@ def main(args):
         utils.load_entire_model(model, args.model_path)
         logger.info('Loaded trained params of model successfully')
 
+    test_config = get_test_config(cfg, args)
     config_check(cfg, val_dataset=val_dataset)
 
-    evaluate(
-        model,
-        val_dataset,
-        aug_eval=args.aug_eval,
-        scales=args.scales,
-        flip_horizontal=args.flip_horizontal,
-        flip_vertical=args.flip_vertical,
-        is_slide=args.is_slide,
-        crop_size=args.crop_size,
-        stride=args.stride,
-        num_workers=args.num_workers, )
+    evaluate(model, val_dataset, num_workers=args.num_workers, **test_config)
 
 
 if __name__ == '__main__':
