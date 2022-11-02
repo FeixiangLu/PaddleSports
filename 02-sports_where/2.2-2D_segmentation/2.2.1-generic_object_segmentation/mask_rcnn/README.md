@@ -69,12 +69,8 @@ CUDA_VISIBLE_DEVICES=0 python eval.py -c configs/mask_rcnn_r50_1x_coco.yml -w yo
 
 ```shell
  python3 infer.py \
--c configs/configs/mask_rcnn_r50_1x_coco.yml.yml \
+-c configs/configs/mask_rcnn_r50_1x_coco.yml \
 -w output/mask_rcnn/model_final \
 --infer_img=test.jpeg
 ```
 
-
-
-## 推理部署
-* 详情信息可以参考[连接](https://gitee.com/paddlepaddle/PaddleDetection/blob/release/2.4/configs/ppyoloe/README_cn.md#%E6%8E%A8%E7%90%86)

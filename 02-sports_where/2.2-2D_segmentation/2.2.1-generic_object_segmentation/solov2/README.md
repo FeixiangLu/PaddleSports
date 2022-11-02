@@ -96,8 +96,3 @@ CUDA_VISIBLE_DEVICES=0 python eval.py -c configs/solov2_r50_enhance_coco.yml -w 
 -w output/Solov2/model_final \
 --infer_img=test.jpeg
 ```
-
-
-
-## 推理部署
-* 详情信息可以参考[连接](https://gitee.com/paddlepaddle/PaddleDetection/blob/release/2.4/configs/ppyoloe/README_cn.md#%E6%8E%A8%E7%90%86)
